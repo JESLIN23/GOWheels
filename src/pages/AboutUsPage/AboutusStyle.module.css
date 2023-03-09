@@ -1,57 +1,57 @@
 .gradient {
-    position: fixed;
-    height: 1rem;
-    width: 100%;
-    background: linear-gradient(180deg, rgba(181,181,181,0.9) 0%, rgba(255,255,255,0.3) 100%);
+  position: fixed;
+  height: 1rem;
+  width: 100%;
+  background: linear-gradient(180deg, rgba(181, 181, 181, 0.9) 0%, rgba(255, 255, 255, 0.3) 100%);
 }
 
 .aboutInfo {
-    width: 100%;
-    height: fit-content;
-    display: flex;
-    flex-direction: column;
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
 }
 
 .grid1 {
-    width: 100%;
-    height: fit-content;
-    background-color: var(--bgColor1);
-    padding: 3rem 0;
+  width: 100%;
+  height: fit-content;
+  background-color: var(--bgColor1);
+  padding: 3rem 0;
 }
 
 .img {
-    height: fit-content;
-    width: 100%;
+  height: fit-content;
+  width: 100%;
 }
 
 .imgs {
-    height: fit-content;
-    width: 100%;
+  height: fit-content;
+  width: 100%;
 }
 .info {
-    padding: 3rem 5%;
+  padding: 3rem 5%;
 }
-.info h3{
-    font-size: 32px;
-    font-weight: var(--h1FontWeight);
-    margin-bottom: 3rem;
+.info h3 {
+  font-size: 32px;
+  font-weight: var(--h1FontWeight);
+  margin-bottom: 3rem;
 }
 .info p {
-    font-weight: var(--h4FontWeight);
-    padding-bottom: 1rem;
+  font-weight: var(--h4FontWeight);
+  padding-bottom: 1rem;
 }
 
-@media only screen and (max-width: 600px){
-    .grid1 {
-        padding: 1rem 0;
-    }
-    .info {
-        padding: 1rem 5%;
-    }
-    .info h3 {
-        margin-bottom: 1rem;
-    }
-    .info p {
-        padding-bottom: 0.5rem;
-    }
+@media only screen and (max-width: 600px) {
+  .grid1 {
+    padding: 1rem 0;
+  }
+  .info {
+    padding: 1rem 5%;
+  }
+  .info h3 {
+    margin-bottom: 1rem;
+  }
+  .info p {
+    padding-bottom: 0.5rem;
+  }
 }

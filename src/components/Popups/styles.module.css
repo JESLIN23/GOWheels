@@ -1,0 +1,96 @@
+
+.iconWrapper {
+    height: 50%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.icon {
+    color: var(--primaryColor);
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+}
+.warningInfo {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+.warningInfo h2 {
+    margin-top: 1rem;
+    font-size: var(--h3FontSize);
+    font-weight: var(--h2FontWeight);
+}
+.warningInfo Button{
+    padding: 0.5rem 2rem;
+    background-color: var(--btnColor);
+    color: white;
+    border-radius: 5px;
+    font-size: var(--h2FontSize);
+    font-weight: var(--h3FontWeight);
+}
+.warningInfo Button:hover,
+.warningInfo Button:active {
+    background-color: var(--secondaryColor);
+}
+
+.headerWrapper {
+    height: 3rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    background-color: var(--primaryColor);
+}
+.headerWrapper h2{
+    color: white;
+    font-size: var(--h3FontSize);
+    font-weight: var(--h2FontWeight);
+}
+.contentWrapper {
+    height: fit-content;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 1rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.btnWrapper {
+    height: 3.5rem;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.btnWrapper Button{
+    background-color: var(--btnColor);
+    color: white;
+    border-radius: 5px;
+    font-size: var(--h3FontSize);
+    font-weight: var(--h3FontWeight);
+}
+.btnWrapper Button:hover,
+.btnWrapper Button:active {
+    background-color: var(--secondaryColor);
+}
+.dataWrapper {
+    width: 100%;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+}
+.dataWrapper h4 {
+    font-size: var(--h5FontSize);
+    font-weight: var(--h3FontWeight);
+    color: black;
+}

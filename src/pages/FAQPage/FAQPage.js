@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
-import styles from "./FAQStyles.module.css";
-import Slider from "./Slider";
-import Footer from '../HomePage/Part/Footer'
+import styles from './FAQStyles.module.css';
+import Slider from './Slider';
+import Footer from '../../components/Footer/Footer';
 
 const FAQPage = () => {
   return (
@@ -14,7 +14,7 @@ const FAQPage = () => {
         <Slider />
       </div>
       <div>
-        <Footer/>
+        <Footer />
       </div>
     </div>
   );

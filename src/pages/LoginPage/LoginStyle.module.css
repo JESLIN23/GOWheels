@@ -1,0 +1,123 @@
+.container {
+    height: fit-content;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.wrapper {
+    height: 700px;
+    width: 100%;
+    margin: 0;
+    padding: 10%;
+    background: linear-gradient(
+        245deg,
+        rgba(2, 0, 36, 1) 0%,
+        rgba(80, 160, 171, 0.41228991596638653) 100%
+      ),
+      url('./grey-metallic-jeep-with-blue-stripe-it.jpg') center top;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .login {
+    height: fit-content;
+    max-width: 600px;
+    min-width: 450px;
+    border-radius: 10px;
+    padding: 30px 35px;
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+
+  .login h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-weight: 800;
+    color: var(--secondaryColor);
+  }
+
+
+  .input label{
+    font-weight: 700;
+    font-size: 14px;
+    color: black;
+  }
+  .input label:hover,
+  .input label:active{
+    color: var(--secondaryColor);
+  }
+  .input fieldset{
+    /* border: 2px solid var(--primaryColor); */
+    border-radius: 5px;
+  }
+  .input fieldset:hover,
+  .input fieldset:active{
+    border: 2px solid var(--secondaryColor);
+    border-radius: 5px;
+  }
+  .input input{
+    color: black;
+    font-weight: var(--h2FontWeight);
+    font-size: var(--h5FontSize);
+  }
+
+
+  
+  .forget {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+ 
+  .btn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    
+  }
+  .btn Button{
+    width: 100%;
+    padding: 0.5rem auto;
+    background-color: var(--primaryColor);
+    font-weight: 700;
+    color: black;
+  }
+  .btn Button:hover {
+    background-color: var(--secondaryColor);
+  }
+  .redirect {
+    margin-top: 2rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .redirect span{
+    color: var(--secondaryColor);
+    margin-left: 5px;
+    cursor: pointer;
+  }
+
+  @media  screen and (max-width: 600px) {
+    .wrapper {
+      height: 800px;
+      padding: 5%;
+    }
+    .login {
+      min-width: 340px;
+      border-radius: 10px;
+      padding: 20px 25px;
+    }
+  
+    .login h2 {
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+  }

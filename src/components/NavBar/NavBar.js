@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { NavLink, useNavigate, createSearchParams } from 'react-router-dom';
 
-import styles from "./NavBar.module.css";
+import styles from './NavBar.module.css';
 // import logo from './c785ba2145e9497eb75dff1d147873ee.png'
 
 function NavBar() {
@@ -9,49 +9,61 @@ function NavBar() {
 
   const navigate = useNavigate();
 
-  const redirectToLoginPage = () => {
-    setShowMenu(false)
-     navigate("/login", { replace: true })
-    };
+  const loginParams = {data: "login"}
+  const signupParams = {data: "signup"}
 
-  let menuClasses = "";
-  let linksWrapperClasses = ''
-  let headerClasses = ''
+  const redirectToLoginPage = () => {
+    setShowMenu(false);
+    navigate({
+      pathname: '/login',
+      search: `?${createSearchParams(loginParams)}`
+    });
+  };
+  const redirectToSignupPage = () => {
+    setShowMenu(false);
+    navigate({
+      pathname: '/login',
+      search: `?${createSearchParams(signupParams)}`
+    });
+  };
+
+  let menuClasses = '';
+  let linksWrapperClasses = '';
+  let headerClasses = '';
 
   if (showMenu) {
-    menuClasses = `${styles.menuBtnBurger} ${styles.menuBtnBurgerOpen}`
-    linksWrapperClasses = `${styles.linksWrapper} ${styles.linksWrapperOpen}`
-    headerClasses = `${styles.header} ${styles.headerOpen}`
+    menuClasses = `${styles.menuBtnBurger} ${styles.menuBtnBurgerOpen}`;
+    linksWrapperClasses = `${styles.linksWrapper} ${styles.linksWrapperOpen}`;
+    headerClasses = `${styles.header} ${styles.headerOpen}`;
   } else {
-    menuClasses = `${styles.menuBtnBurger}`
-    linksWrapperClasses = `${styles.linksWrapper}`
-    headerClasses = `${styles.header}`
+    menuClasses = `${styles.menuBtnBurger}`;
+    linksWrapperClasses = `${styles.linksWrapper}`;
+    headerClasses = `${styles.header}`;
   }
-
 
   return (
     <div className={styles.NavBarWrapper}>
       <div className={styles.logos}>
         <div className={styles.menuBtn}>
-          <span
-            className={menuClasses}
-            onClick={() => setShowMenu(!showMenu)}
-          ></span>
+          <span className={menuClasses} onClick={() => setShowMenu(!showMenu)}></span>
         </div>
         <div className={styles.logo}>
           <span>GO Wheels</span>
         </div>
       </div>
-      <div className={linksWrapperClasses}>
-        <header className={headerClasses}>
+      <div
+        className={linksWrapperClasses}
+        onClick={() => setShowMenu(!showMenu)}
+      >
+        <header className={headerClasses}
+          onClick={(event => event.stopPropagation())}
+        >
           <nav>
             <ul>
               <li>
                 <NavLink
-                  to="/home"
-                  className={({ isActive }) =>
-                    isActive ? styles.active : undefined
-                  }
+                  to='/home'
+                  className={({ isActive }) => (isActive ? styles.active : undefined)}
                   onClick={() => setShowMenu(false)}
                   end
                 >
@@ -60,10 +72,8 @@ function NavBar() {
               </li>
               <li>
                 <NavLink
-                  to="/about"
-                  className={({ isActive }) =>
-                    isActive ? styles.active : undefined
-                  }
+                  to='/about'
+                  className={({ isActive }) => (isActive ? styles.active : undefined)}
                   end
                   onClick={() => setShowMenu(false)}
                 >
@@ -72,10 +82,8 @@ function NavBar() {
               </li>
               <li>
                 <NavLink
-                  to="/FAQ"
-                  className={({ isActive }) =>
-                    isActive ? styles.active : undefined
-                  }
+                  to='/FAQ'
+                  className={({ isActive }) => (isActive ? styles.active : undefined)}
                   end
                   onClick={() => setShowMenu(false)}
                 >
@@ -84,10 +92,8 @@ function NavBar() {
               </li>
               <li>
                 <NavLink
-                  to="/offers"
-                  className={({ isActive }) =>
-                    isActive ? styles.active : undefined
-                  }
+                  to='/offers'
+                  className={({ isActive }) => (isActive ? styles.active : undefined)}
                   end
                   onClick={() => setShowMenu(false)}
                 >
@@ -96,10 +102,8 @@ function NavBar() {
               </li>
               <li>
                 <NavLink
-                  to="/contactus"
-                  className={({ isActive }) =>
-                    isActive ? styles.active : undefined
-                  }
+                  to='/contactus'
+                  className={({ isActive }) => (isActive ? styles.active : undefined)}
                   end
                   onClick={() => setShowMenu(false)}
                 >
@@ -107,19 +111,11 @@ function NavBar() {
                 </NavLink>
               </li>
               <li className={styles.login}>
-                <button
-                  onClick={redirectToLoginPage}
-                  className={styles.btn}
-                  end
-                >
+                <button onClick={redirectToLoginPage} className={styles.btn} end>
                   Login
                 </button>
 
-                <button
-                  onClick={redirectToLoginPage}
-                  className={styles.btn}
-                  end
-                >
+                <button onClick={redirectToSignupPage} className={styles.btn} end>
                   Signup
                 </button>
               </li>

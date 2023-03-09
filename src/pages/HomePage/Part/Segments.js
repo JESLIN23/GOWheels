@@ -1,14 +1,14 @@
-import React from "react";
+import React from 'react';
 
-import Grid from "@mui/material/Grid";
+import Grid from '@mui/material/Grid';
 
-import styles from "../HomeStyle.module.css";
-import sadan from "../SVG/sedan-car-model.svg";
-import MPV from '../SVG/minivan-car-svgrepo-com.svg'
-import SUV from '../SVG/SUV.svg'
-import Hatchback from '../SVG/car-svgrepo-com.svg'
-import convertable from '../SVG/car-muscle-design-svgrepo-com.svg'
-import Wagon from '../SVG/car-city-model-svgrepo-com.svg'
+import styles from '../HomeStyle.module.css';
+import sadan from '../SVG/sedan-car-model.svg';
+import MPV from '../SVG/minivan-car-svgrepo-com.svg';
+import SUV from '../SVG/SUV.svg';
+import Hatchback from '../SVG/car-svgrepo-com.svg';
+import convertable from '../SVG/car-muscle-design-svgrepo-com.svg';
+import Wagon from '../SVG/car-city-model-svgrepo-com.svg';
 
 function Segments() {
   return (
@@ -18,37 +18,37 @@ function Segments() {
       <Grid container columnSpacing={4} xs={12} className={styles.carSegments}>
         <Grid item xs={6} sm={4} className={styles.cars}>
           <div className={styles.carsvgWrapper}>
-            <img src={sadan} alt="" />
+            <img src={sadan} alt='' />
             <span>Sadan</span>
           </div>
         </Grid>
         <Grid item xs={6} sm={4} className={styles.cars}>
           <div className={styles.carsvgWrapper}>
-            <img src={MPV} alt="" />
+            <img src={MPV} alt='' />
             <span>MPV</span>
           </div>
         </Grid>
         <Grid item xs={6} sm={4} className={styles.cars}>
           <div className={styles.carsvgWrapper}>
-            <img src={SUV} alt="" />
+            <img src={SUV} alt='' />
             <span>SUV</span>
           </div>
         </Grid>
         <Grid item xs={6} sm={4} className={styles.cars}>
           <div className={styles.carsvgWrapper}>
-            <img src={Hatchback} alt="" />
+            <img src={Hatchback} alt='' />
             <span>Hatchback</span>
           </div>
         </Grid>
         <Grid item xs={6} sm={4} className={styles.cars}>
           <div className={styles.carsvgWrapper}>
-            <img src={convertable} alt="" />
+            <img src={convertable} alt='' />
             <span>Convertable</span>
           </div>
         </Grid>
         <Grid item xs={6} sm={4} className={styles.cars}>
           <div className={styles.carsvgWrapper}>
-            <img src={Wagon} alt="" />
+            <img src={Wagon} alt='' />
             <span>Wagon</span>
           </div>
         </Grid>

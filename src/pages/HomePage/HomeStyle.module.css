@@ -1,541 +1,535 @@
-
-
 .bodyWrapper {
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    
+  height: 100%;
+  width: 100%;
+  margin: 0;
 }
 
 .headWrapper {
-    height: 700px;
-    width: 100%;
-    margin: 0;
-    padding: 10%;
-    background:linear-gradient(245deg, rgba(2,0,36,1) 0%, rgba(80,160,171,0.41228991596638653) 100%), url('./IMG/grey-metallic-jeep-with-blue-stripe-it.jpg') center top;
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  height: 700px;
+  width: 100%;
+  margin: 0;
+  padding: 10%;
+  background: linear-gradient(
+      245deg,
+      rgba(2, 0, 36, 1) 0%,
+      rgba(80, 160, 171, 0.41228991596638653) 100%
+    ),
+    url('./IMG/grey-metallic-jeep-with-blue-stripe-it.jpg') center top;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.headWrapper h3{
-    color: white;
-    font-size: 30px;
-    font-weight: 500;
-    margin-bottom: 8rem;
+.headWrapper h3 {
+  color: white;
+  font-size: 30px;
+  font-weight: 500;
+  margin-bottom: 8rem;
 }
 
 .headWrapper h3 span {
-    color: #43D7C8;
+  color: #43d7c8;
 }
 
 .rentWrapper {
-    height: min-content;
-    background-color: white;
-    border-radius: 7px;
-    box-shadow: 2px 4px 8px black;
-    padding: 1rem 1.5rem;
-    margin-top: 4rem;
-    position: relative;
+  height: fit-content;
+  width: fit-content;
+  background-color: white;
+  border-radius: 7px;
+  box-shadow: 2px 4px 8px black;
+  padding: 1rem 1.5rem;
+  margin-top: 4rem;
+  position: relative;
 }
 
 .rentWrapper :nth-of-type(5) {
-    font-size: 20px;
-    text-align: center;
+  font-size: 20px;
+  text-align: center;
 }
 .rentWrapper :nth-of-type(5) Button {
-    background-color: #00CDB8;
-    padding: 0.5 1.5rem;
-    transition: all 0.5s ease-in-out;
+  background-color: #00cdb8;
+  padding: 0.5 1.5rem;
+  transition: all 0.5s ease-in-out;
 }
 .rentWrapper :nth-of-type(5) :hover {
-    background-color: #18776D;
+  background-color: #18776d;
 }
 
 .rentInfoWrapper {
-    height: fit-content;
-    padding: 6px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid rgb(163, 153, 153);
-    border-right: 3px solid #43D7C8;
-    border-radius: 4px;
+  height: fit-content;
+  padding: 6px;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; */
+  border: 1px solid rgb(163, 153, 153);
+  border-right: 3px solid #43d7c8;
+  border-radius: 4px;
 }
 
-.logoSM{
-    width: 22px;
-    height: 22px;
+.logoSM {
+  width: 22px;
+  height: 22px;
 }
 .logoLG {
-    width: 32px;
-    height: 32px;
-    color: #18776D;
+  width: 32px;
+  height: 32px;
+  color: #18776d;
 }
 .logoWrapper {
-    height: 55px;
-    width: 55px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #00CDB8;
+  height: 55px;
+  width: 55px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #00cdb8;
 }
 
-.rentInfoWrapper h4{
-    font-weight: 700;
-    font-size: 15px  ;
+.rentInfoWrapper h4 {
+  font-weight: 700;
+  font-size: 15px;
 }
 
 .rentInfoWrapper h4 span {
-    color: red;
+  color: red;
 }
 
 .btn {
-    width: 100%;
-    height: max-content;
-    padding: 0.5rem 0.5rem;
-    background-color: #ffffff;
-    color: rgb(6, 5, 4);
-    border-radius: 3px;
-     box-shadow: inset;
-     font-size: 13px;
-     text-decoration: none;
-    font-weight: 700;
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.30);
-    cursor: pointer;
-     display: flex;
-    justify-content: space-between;
-     align-items: center;
-     background-color: #F6F6F6;
-     margin-top: 4px;
+  width: 100%;
+  height: fit-content;
+  padding: 0.5rem 0.5rem;
+  background-color: #ffffff;
+  color: rgb(6, 5, 4);
+  border-radius: 3px;
+  font-size: 13px;
+  text-decoration: none;
+  font-weight: 700;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f6f6f6;
+  margin-top: 4px;
+  overflow: hidden;
 }
 
-.rentSelect{
-    width: 100%;
-    height: fit-content;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.rentSelect {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-
 
 .btn span {
-    /* font-weight: 700;
+  /* font-weight: 700;
     font-size: 13px; */
-    margin-left: 0.8rem;
+  margin-left: 0.8rem;
 }
 
 .workWrapper {
-    width: 100%;
-    height: fit-content;
-    padding: 2rem 10%;
-    background-color: #F7FAFD;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  width: 100%;
+  height: fit-content;
+  padding: 2rem 10%;
+  background-color: #f7fafd;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .line {
-    height: 2px;
-    background: rgb(170, 165, 165);
-    width: 100%;
-    margin-bottom: 2rem;
-    margin-top: 1rem;
+  height: 2px;
+  background: rgb(170, 165, 165);
+  width: 100%;
+  margin-bottom: 2rem;
+  margin-top: 1rem;
 }
-
 
 .mainHeading {
-    font-weight: 900;
-    font-size: 32px;
-    color: #5A5A5A;
+  font-weight: 900;
+  font-size: 32px;
+  color: #5a5a5a;
 }
 .secondHeading {
-    font-weight: 700;
-    font-size: 20px;
-    color: #4A4A4A;
+  font-weight: 700;
+  font-size: 20px;
+  color: #4a4a4a;
 }
-.midHeading{
-    font-size: 26;
-    font-weight: 600;
-    color: #4A4A4A;
+.midHeading {
+  font-size: 26;
+  font-weight: 600;
+  color: #4a4a4a;
 }
 .thirdHeading {
-    font-weight: 600;
-    font-size:18px;
-    color: #3A3A3A;
-} 
+  font-weight: 600;
+  font-size: 18px;
+  color: #3a3a3a;
+}
 
 .container {
-    width: 100%;
-    height: fit-content;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    row-gap: 2rem;
-
+  width: 100%;
+  height: fit-content;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  row-gap: 2rem;
 }
 
 .workContent {
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-    width: 100%;
-    padding: 10px;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  width: 100%;
+  padding: 10px;
 }
 
-.worklogo{
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.worklogo {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .worklogo h3 {
-    margin-bottom: 5px;
+  margin-bottom: 5px;
 }
-
 
 /* why */
 
 .whyWrapper {
-    
-    width: 100%;
-    height: fit-content;
-    padding: 2rem 10%;
-    background-color: #f9f9f9;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  width: 100%;
+  height: fit-content;
+  padding: 2rem 10%;
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .whyContent {
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-    width: 100%;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 5px;
-    padding: 10px;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  width: 100%;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  padding: 10px;
 }
 
 .Whycontainer {
-    width: 100%;
-    height: fit-content;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 2rem;
+  width: 100%;
+  height: fit-content;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 2rem;
 }
 
 .whyWrapper {
-    width: 100%;
-    height: fit-content;
-    padding: 2rem 10%;
-    
-    background-color: rgba(249, 249, 249, 0.8);
-    background-image: url('./IMG/360_F_530791803_JVBHVPfQZVdoHgEcUXEue5H24jCw4h6Q.jpg');
-    background-repeat: no-repeat;
-    background-position: right;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  width: 100%;
+  height: fit-content;
+  padding: 2rem 10%;
+
+  background-color: rgba(249, 249, 249, 0.8);
+  background-image: url('./IMG/360_F_530791803_JVBHVPfQZVdoHgEcUXEue5H24jCw4h6Q.jpg');
+  background-repeat: no-repeat;
+  background-position: right;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /*segments*/
 
 .segmentWrapper {
-    width: 100%;
-    height: fit-content;
-    padding: 2rem 10%;
-    background-color: rgba(249, 249, 249);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  width: 100%;
+  height: fit-content;
+  padding: 2rem 10%;
+  background-color: rgba(249, 249, 249);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-
-.cars img{
-    width: 100%;
-    height: 9rem;
-    background-size: cover;
-    background-position: center;
-    
+.cars img {
+  width: 100%;
+  height: 9rem;
+  background-size: cover;
+  background-position: center;
 }
 
 .carsvgWrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 /*find*/
 
 .findWrapper {
-    width: 100%;
-    height: fit-content;
-    padding: 5rem 10%;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  width: 100%;
+  height: fit-content;
+  padding: 5rem 10%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .findCar {
-    margin-top: 2rem;
-    padding: 5px;
-    
+  margin-top: 2rem;
+  padding: 5px;
 }
 .carInfo {
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-    grid-template-rows: inherit;
-    column-gap: 5px;
-    row-gap: 7px;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-template-rows: inherit;
+  column-gap: 5px;
+  row-gap: 7px;
 }
 
 .line2 {
-    height: 100%;
-    width: 2px;
-    background: rgb(170, 165, 165);
-    margin-left: 0.5rem;
+  height: 100%;
+  width: 2px;
+  background: rgb(170, 165, 165);
+  margin-left: 0.5rem;
 }
-.carNames{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    
+.carNames {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .carName {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
 }
 
-.dis{
-    display: flex;
+.dis {
+  display: flex;
 }
 
 .imgSize {
-    height: 16rem;
-    width: 75%;
+  height: 16rem;
+  width: 75%;
 }
 
 .carNames Button {
-    background-color: #00CDB8;
-    padding: 0.5 1.5rem;
-    width: fit-content;
-    margin-top: 8px;
-    transition: all 0.5s ease-in-out;
+  background-color: #00cdb8;
+  padding: 0.5 1.5rem;
+  width: fit-content;
+  margin-top: 8px;
+  transition: all 0.5s ease-in-out;
 }
-.carNames Button:hover{
-    background-color: #18776D;
+.carNames Button:hover {
+  background-color: #18776d;
 }
 
 .paraInfo {
-    font-size: 17;
-    font-weight: 600;
+  font-size: 17;
+  font-weight: 600;
 }
 
 .im {
-    height: 100%;
-    width: 100%;
-   
+  height: 100%;
+  width: 100%;
 }
 
 /*cities*/
 
 .cityWrapper {
-    padding: 2rem 10%;
-    background: #fcfcfc;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  padding: 2rem 10%;
+  background: #fcfcfc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.cityWrapper h1{
-    margin-bottom: 2.5rem;
+.cityWrapper h1 {
+  margin-bottom: 2.5rem;
 }
-
 
 .cityName {
-    padding: 1rem 0.5rem;
-    width: 100%;
-    background-color: #F0F0F0;
-    border-radius: 5px;
-    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
-    display: flex;
+  padding: 1rem 0.5rem;
+  width: 100%;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
+  display: flex;
 }
-.cityName:hover{
-    color: white;
-    background-color: #43D7C8;
-    transition: all 0.5s ease-in-out;
+.cityName:hover {
+  color: white;
+  background-color: #43d7c8;
+  transition: all 0.5s ease-in-out;
 }
 .cityName:hover h3 {
-    color: white;
-    transition: all 0.5s ease-in-out;
+  color: white;
+  transition: all 0.5s ease-in-out;
 }
 .cityName h3 {
-    padding-left: 1.5rem;
+  padding-left: 1.5rem;
 }
 
 /* footer */
 
 .footerWrapper {
-    width: 100%;
-    height: fit-content;
-    padding: 1rem 10%;
-    padding-top: 2rem;
-    background: #000000;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-   
+  width: 100%;
+  height: fit-content;
+  padding: 1rem 10%;
+  padding-top: 2rem;
+  background: #000000;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.footerContent{
-    padding: 1.5rem 0.5rem;
+.footerContent {
+  padding: 1.5rem 0.5rem;
 }
 
 .promiseInfo {
-    width: 100%;
-    height: fit-content;
-    display: flex;
-    flex-direction: column;
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
 }
 .promiseInfo h2 {
-    color: #43D7C8;
-    font-weight: 700;
-    font-size: 22px;
+  color: #43d7c8;
+  font-weight: 700;
+  font-size: 22px;
 }
 .promiseInfo p {
-    font-size: 12px;
-    margin-top: 1rem;
+  font-size: 12px;
+  margin-top: 1rem;
 }
 .promiseInfo ul {
-    margin-top: 1rem;
-    display: flex;
-    gap: 1rem;
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
 }
 .promiseInfo a {
-    color: #00CDB8;
-    
+  color: #00cdb8;
 }
 .promiseInfo a:hover {
-    color:#18776D;
-    transition: all 0.5s ease-in-out;
+  color: #18776d;
+  transition: all 0.5s ease-in-out;
 }
 
 .comInfo {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .comInfo ul {
-    display: flex;
-    flex-direction: column;
-    padding: 5px 0;
-    gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  padding: 5px 0;
+  gap: 0.5rem;
 }
 .comInfo a {
-    color: #ffffff;
-    font-size: 0.8rem;
-    text-decoration: none;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-  }
+  color: #ffffff;
+  font-size: 0.8rem;
+  text-decoration: none;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
 .comInfo p {
-    color: #ffffff;
-    font-size: 0.8rem;
-    text-decoration: none;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-  }
-  .comInfo span {
-    margin-left: 1rem;
-  }
-  
-  .comInfo a:hover,
-  .comInfo a:active,
-  .comInfo a.active {
-    color: #43D7C8;
-    transition: all 0.5s ease-in-out;
-  }
+  color: #ffffff;
+  font-size: 0.8rem;
+  text-decoration: none;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+.comInfo span {
+  margin-left: 1rem;
+}
 
-  .lineFooter {
-    height: 3px;
-    background: #18776D;
-    width: 20%;
-    margin-bottom: 12px;
-    margin-top: 7px;
-    border-radius: 5px;
+.comInfo a:hover,
+.comInfo a:active,
+.comInfo a.active {
+  color: #43d7c8;
+  transition: all 0.5s ease-in-out;
+}
+
+.lineFooter {
+  height: 3px;
+  background: #18776d;
+  width: 20%;
+  margin-bottom: 12px;
+  margin-top: 7px;
+  border-radius: 5px;
 }
 
 .comInfo Button {
-    background-color: #00CDB8;
-    padding: 0.5 1.5rem;
-    width: fit-content;
-    margin-top: 8px;
-    transition: all 0.5s ease-in-out;
+  background-color: #00cdb8;
+  padding: 0.5 1.5rem;
+  width: fit-content;
+  margin-top: 8px;
+  transition: all 0.5s ease-in-out;
 }
-.comInfo Button:hover{
-    background-color: #18776D;
+.comInfo Button:hover {
+  background-color: #18776d;
 }
-
 
 @media screen and (max-width: 600px) {
-    .rentInfoWrapper {
-        height: 1rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .container {
-        row-gap: 1rem;
-    }
-    .headWrapper h1{
-        color: white;
-        font-size: 24px;
-        font-weight: 600;
-        margin-bottom: 1rem;
-    }
-    .rentWrapper {
-        margin-top: 1rem;
-    }
-    .line {
-        margin-bottom: 1.5rem;
-    }
+  .rentInfoWrapper {
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .container {
+    row-gap: 1rem;
+  }
+  .headWrapper h1 {
+    color: white;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  .rentWrapper {
+    margin-top: 1rem;
+  }
+  /* .rentSelect {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  } */
+  .line {
+    margin-bottom: 1.5rem;
+  }
 
-    .findWrapper{
-         padding: 1rem 10;
-    }
-    .findCar {
-        margin-top: 0.5rem;
-    }
-    .carName {
-        padding-top: 1rem;
-        padding-bottom: 1rem;
-    }
-    .imgSize {
-        height: 7rem;
-        width: 90%;
-    }
-    .cityName {
-        padding: 0.5rem 0.5rem;
-    }
-    .footerContent{
-        padding: 1rem 0.5rem;
-    }
-    .footerWrapper {
-        padding: 1rem 10%;
-    }
-    
+  .findWrapper {
+    padding: 1rem 10%;
+  }
+  .findCar {
+    margin-top: 0.5rem;
+  }
+  .carName {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  .imgSize {
+    height: 12rem;
+    width: 100%;
+  }
+  .cityName {
+    padding: 0.5rem 0.5rem;
+  }
+  .cityName h3 {
+    padding-left: 0.5rem;
+  }
+  .footerContent {
+    padding: 1rem 0.5rem;
+  }
+  .footerWrapper {
+    padding: 1rem 10%;
+  }
 }
-
