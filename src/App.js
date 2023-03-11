@@ -9,6 +9,7 @@ import FAQPage from './pages/FAQPage/FAQPage';
 import OffersPage from './pages/OffersPage/OffersPage';
 import ContactPage from './pages/ContactusPage/ContactPage';
 import ErrorPage from './pages/ErrorPage/ErrorPage';
+import SearchPage from './pages/SearchPage/SearchPage';
 
 const router = createBrowserRouter([
   {
@@ -22,8 +23,8 @@ const router = createBrowserRouter([
       { path: '/FAQ', element: <FAQPage /> },
       { path: '/offers', element: <OffersPage /> },
       { path: '/contactus', element: <ContactPage /> },
-      { path: '/login', element: <LoginPage/> }
-      // { path: '/booking' element: <BookingPage /> },
+      { path: '/login', element: <LoginPage/> },
+      { path : '/search', element: <SearchPage/>}
     ],
   },
 ]);

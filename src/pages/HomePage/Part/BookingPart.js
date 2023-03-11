@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-
+import { useNavigate, createSearchParams } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-
 import location from '../SVG/location.svg';
 import calender from '../SVG/calendar.svg';
 import styles from '../HomeStyle.module.css';
@@ -24,13 +23,33 @@ function BookingPart() {
   const [warningData, setWarningData] = useState('');
   const [notSelectWarning, setNotSelectWarning] = useState(false);
 
+  const navigate = useNavigate()
+
   let pickupLocations = {
-    calicut: ['home', 'railwaystation', 'airport', 'medical'],
-    kochi: ['home', 'vpa', 'mdv', 'lma'],
-    trv: ['home', 'tre', 'egt', 'ekpd', 'pd', 'fmo', 'ddd'],
+    Calicut: ['Home Delivery', 'Calicut Railway station', 'Calicut International Airport', 'GoWheel, Calicut'],
+    Kochin: ['Home Delivery', 'GoWheel, Edapally', 'North Railway Station', 'Cochin International Airport'],
+    Trivandrum: ['Home Delivery', 'GoWheel, Trivandram', 'Trivandram International Airport', 'Trivandram Central Railway Station'],
   };
 
-  const searchVehicleHandler = () => {};
+  const searchVehicleHandler = () => {
+    if(!pickupPoint.location) setNotSelectWarning(true), setWarningData('Please Select Pickup Point')
+    if(!pickupDate.time) setNotSelectWarning(true), setWarningData('Please Select Pickup Date')
+    if(!dropoffPoint.location) setNotSelectWarning(true), setWarningData('Please Select Dropoff Point')
+    if(!dropoffDate.time) setNotSelectWarning(true), setWarningData('Please Select Dropoff Date')
+
+    let searchParams = {
+      pickupPoint,
+      pickupDate,
+      dropoffPoint,
+      dropoffDate
+    }
+
+    navigate({
+      pathname: '/search',
+      search: `?${createSearchParams(searchParams)}`
+    })
+
+  };
 
   return (
     <>
