@@ -3,6 +3,7 @@
 :root {
   --bgColor1: #fcfcfc;
   --bgColor2: #faf7fd;
+  --dividerColor:  rgb(170, 165, 165);
 
   --primaryColor: #43d7c8;
   --btnColor: #00cdb8;

@@ -61,7 +61,7 @@
   }
   .input input{
     color: black;
-    font-weight: var(--h2FontWeight);
+    font-weight: var(--h3FontWeight);
     font-size: var(--h5FontSize);
   }
 
