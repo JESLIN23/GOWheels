@@ -1,0 +1,24 @@
+.container {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.privacyWrapper {
+    max-width: 1000px;
+    height: fit-content;
+    width: 100%;
+    margin: 1rem auto;
+    padding: 1rem 1.5rem;
+}
+.privacyWrapper h3 {
+    font-size: var(--h3FontSize);
+    font-weight: var(--h2FontWeight);
+    margin-bottom: 1rem;
+}
+.privacyWrapper h4 {
+    font-size: var(--h5FontSize);
+    font-weight: var(--h4FontWeight);
+    margin-bottom: 2rem;
+}

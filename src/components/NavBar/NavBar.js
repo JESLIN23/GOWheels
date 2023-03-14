@@ -4,26 +4,42 @@ import { NavLink, useNavigate, createSearchParams } from 'react-router-dom';
 import styles from './NavBar.module.css';
 // import logo from './c785ba2145e9497eb75dff1d147873ee.png'
 
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Divider from '@mui/material/Divider';
+import Paper from '@mui/material/Paper';
+import MenuList from '@mui/material/MenuList';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import LogoutIcon from '@mui/icons-material/Logout';
+import PrivacyTipIcon from '@mui/icons-material/PrivacyTip';
+import ArticleIcon from '@mui/icons-material/Article';
+import PermIdentityIcon from '@mui/icons-material/PermIdentity';
+import AlertLayout from '../layout/AlertLayout/AlertLayout'
+
+
 function NavBar() {
   const [showMenu, setShowMenu] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [logout, setLogout] = useState(false)
 
   const navigate = useNavigate();
 
-  const loginParams = {data: "login"}
-  const signupParams = {data: "signup"}
+  const loginParams = { data: 'login' };
+  const signupParams = { data: 'signup' };
 
   const redirectToLoginPage = () => {
     setShowMenu(false);
     navigate({
       pathname: '/login',
-      search: `?${createSearchParams(loginParams)}`
+      search: `?${createSearchParams(loginParams)}`,
     });
   };
   const redirectToSignupPage = () => {
     setShowMenu(false);
     navigate({
       pathname: '/login',
-      search: `?${createSearchParams(signupParams)}`
+      search: `?${createSearchParams(signupParams)}`,
     });
   };
 
@@ -41,6 +57,42 @@ function NavBar() {
     headerClasses = `${styles.header}`;
   }
 
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const profilePageHandler = () => {
+    setShowMenu(false);
+    navigate('/profile')
+    handleClose()
+  }
+  const termsPageHandler = () => {
+    setShowMenu(false);
+    navigate('/terms_&_condetions')
+    handleClose()
+  }
+  const privacyPageHandler = () => {
+    setShowMenu(false);
+    navigate('/privacy_policy')
+    handleClose()
+  }
+
+  const logoutHandler = () => {
+    setShowMenu(false);
+    setLogout(true)
+    handleClose()
+  }
+  const logoutConfirmHandler = () => {
+    setLogout(true)
+    handleClose()
+    navigate('/home')
+  }
+ 
+
   return (
     <div className={styles.NavBarWrapper}>
       <div className={styles.logos}>
@@ -51,13 +103,8 @@ function NavBar() {
           <span>GO Wheels</span>
         </div>
       </div>
-      <div
-        className={linksWrapperClasses}
-        onClick={() => setShowMenu(!showMenu)}
-      >
-        <header className={headerClasses}
-          onClick={(event => event.stopPropagation())}
-        >
+      <div className={linksWrapperClasses} onClick={() => setShowMenu(!showMenu)}>
+        <header className={headerClasses} onClick={(event) => event.stopPropagation()}>
           <nav>
             <ul>
               <li>
@@ -119,10 +166,71 @@ function NavBar() {
                   Signup
                 </button>
               </li>
+              <li>
+                <button
+                  id='basic-button'
+                  aria-controls={open ? 'basic-menu' : undefined}
+                  aria-haspopup='true'
+                  aria-expanded={open ? 'true' : undefined}
+                  onClick={handleClick}
+                  className={styles.btn}
+                >
+                  Account
+                </button>
+                <Menu
+                  id='basic-menu'
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  MenuListProps={{
+                    'aria-labelledby': 'basic-button',
+                  }}
+                >
+                  <Paper sx={{ width: 200, maxWidth: '100%' }}>
+                    <MenuList>
+                      <MenuItem onClick={profilePageHandler}>
+                        <ListItemIcon>
+                          <PermIdentityIcon fontSize='small' />
+                        </ListItemIcon>
+                        <ListItemText>My Profile</ListItemText>
+                      </MenuItem>
+                      <Divider />
+                      <MenuItem onClick={termsPageHandler}>
+                        <ListItemIcon >
+                          <ArticleIcon fontSize='small' />
+                        </ListItemIcon>
+                        <ListItemText>Terms & Conditions</ListItemText>
+                      </MenuItem>
+                      <Divider />
+                      <MenuItem onClick={privacyPageHandler}>
+                        <ListItemIcon>
+                          <PrivacyTipIcon fontSize='small' />
+                        </ListItemIcon>
+                        <ListItemText>Privacy Policy</ListItemText>
+                      </MenuItem>
+                      <Divider />
+                      <MenuItem onClick={logoutHandler}>
+                        <ListItemIcon>
+                          <LogoutIcon fontSize='small' />
+                        </ListItemIcon>
+                        <ListItemText>Logout</ListItemText>
+                      </MenuItem>
+                    </MenuList>
+                  </Paper>
+                </Menu>
+              </li>
             </ul>
           </nav>
         </header>
       </div>
+
+      {logout && <AlertLayout
+        head='Logout Alert'
+        message='Are you sure you want to continue ? '
+        handleClose={() => setLogout(false)}
+        handleAgree={logoutConfirmHandler}
+      />}
+
     </div>
   );
 }

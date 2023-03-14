@@ -9,8 +9,17 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import AirlineSeatReclineExtraIcon from '@mui/icons-material/AirlineSeatReclineExtra';
+import SettingsIcon from '@mui/icons-material/Settings';
+import LocalGasStationIcon from '@mui/icons-material/LocalGasStation';
+import hondaCity from '../HomePage/IMG/Honda_Civic_White_background_Sedan_Grey_526338_1280x765.jpg';
+import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
+import Button from '@mui/material/Button';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 import FilterPart from './FilterPart/FilterPart';
+
 function SearchPage() {
   const [kilometers, setKilometers] = useState('150');
   const [sorting, setSorting] = useState('down');
@@ -28,6 +37,8 @@ function SearchPage() {
   const handleMinKilometers = (event) => {
     setKilometers(event.target.value);
   };
+
+  const carBookHandler = () => {};
   return (
     <div className={styles.container}>
       <div className={styles.filterWrapper}>
@@ -88,8 +99,92 @@ function SearchPage() {
         <FilterPart />
       </div>
       <div className={styles.contentWrapper}>
-        <div className={styles.durationWrapper}></div>
-        <div className={styles.carWrapper}></div>
+        <div className={styles.durationWrapper}>
+          <div className={styles.boodkingInfoFixed}>
+            <div className={styles.bookingInfoWrapper}>
+              <h3>Pick up information</h3>
+              <div className={styles.bookingInfo}>
+                <LocationOnIcon style={{ color: '#43d7c8', marginRight: 5 }} />
+                <div className={styles.LOCinfo}>
+                  <h4>Calicut International Airport, Calicut</h4>
+                  <h6>Thu, 16 Mar 23, 12:00 AM</h6>
+                </div>
+              </div>
+              <div className={styles.divider}></div>
+              <h3>Drop off information</h3>
+              <div className={styles.bookingInfo}>
+                <LocationOnIcon style={{ color: 'red', marginRight: 5 }} />
+                <div className={styles.LOCinfo}>
+                  <h4>Calicut International Airport, Calicut</h4>
+                  <h6>Thu, 16 Mar 23, 12:00 AM</h6>
+                </div>
+              </div>
+            </div>
+            <div className={styles.durationInfo}>
+              <h4>Total travel duration</h4>
+              <h4 style={{ color: 'white', marginTop: 5 }}>0 Day 4 Hours 0 Min</h4>
+            </div>
+          </div>
+        </div>
+        <div className={styles.findCarWrapper}>
+          <div className={styles.selectCar}>
+            <div className={styles.carInfo}>
+              <div className={styles.carImage}>
+                <img src={hondaCity} alt='' />
+              </div>
+              <div className={styles.carDetails}>
+                <h3 style={{ marginBottom: '12px', fontWeight: 700 }}>Maruti Alto</h3>
+                <div style={{ display: 'flex' }}>
+                  <AirlineSeatReclineExtraIcon className={styles.info} />
+                  <h5>5 seater</h5>
+                </div>
+                <div style={{ display: 'flex' }}>
+                  <SettingsIcon className={styles.info} />
+                  <h5>manual</h5>
+                </div>
+                <div style={{ display: 'flex' }}>
+                  <LocalGasStationIcon className={styles.info} />
+                  <h5>petrol</h5>
+                </div>
+              </div>
+            </div>
+            <div className={styles.bookCar}>
+              <h3 style={{ marginBottom: '0.5rem' }}>
+                <CurrencyRupeeIcon style={{ fontSize: 18 }} className={styles.info} />
+                1500
+              </h3>
+              <h6 style={{ marginBottom: '1rem' }}>
+                <CurrencyRupeeIcon style={{ fontSize: 10 }} />
+                12/km(Exclude)
+              </h6>
+              <Button onClick={carBookHandler}>Book Now</Button>
+            </div>
+          </div>
+          <div className={styles.selectCarMinWrapper} onClick={carBookHandler}>
+            <div className={styles.carInfoMin}>
+              <h3 style={{ marginBottom: '12px' }} className={styles.h3}>
+                Maruti Alto
+              </h3>
+              <h5>5 seater, manual, petrol</h5>
+              <h3 style={{ marginBottom: 5, marginTop: '1rem' }}>
+                <CurrencyRupeeIcon style={{ fontSize: 18 }} className={styles.info} />
+                1500
+              </h3>
+              <h6>
+                <CurrencyRupeeIcon style={{ fontSize: 10 }} />
+                12/km(Exclude)
+              </h6>
+            </div>
+            <div className={styles.bookCarMin}>
+              <div className={styles.carImage}>
+                <img src={hondaCity} alt='' />
+              </div>
+              <div className={styles.arrow}>
+                <KeyboardArrowRightIcon style={{ color: '#43d7c8', fontSize: 30 }} />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <Footer />

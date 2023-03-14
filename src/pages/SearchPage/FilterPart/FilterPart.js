@@ -196,7 +196,7 @@ function FilterPart(props) {
                   }}
                   edge='end'
                   onChange={handleTransmission(value)}
-                  checked={fuelType.indexOf(value) !== -1}
+                  checked={transmission.indexOf(value) !== -1}
                   inputProps={{ 'aria-labelledby': labelId }}
                 />
               }
