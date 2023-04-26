@@ -20,17 +20,17 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     errorElement: <ErrorPage/>,
     children: [
-      { path: '/', element: <HomePage /> },
-      { path: '/home', element: <HomePage /> },
-      { path: '/about', element: <AboutUsPage /> },
-      { path: '/FAQ', element: <FAQPage /> },
-      { path: '/offers', element: <OffersPage /> },
-      { path: '/contactus', element: <ContactPage /> },
-      { path: '/login', element: <LoginPage/> },
-      { path: '/search', element: <SearchPage/>},
-      { path: '/profile', element: <ProfilePage/>},
-      { path: '/privacy_policy', element: <PrivacyPage/>},
-      { path: '/terms_&_condetions', element: <TermsPage/>}
+      { index: true , element: <HomePage /> },
+      { path: 'home', element: <HomePage /> },
+      { path: 'about', element: <AboutUsPage /> },
+      { path: 'FAQ', element: <FAQPage /> },
+      { path: 'offers', element: <OffersPage /> },
+      { path: 'contactus', element: <ContactPage /> },
+      { path: 'login', element: <LoginPage/> },
+      { path: 'search', element: <SearchPage/>},
+      { path: 'profile', element: <ProfilePage/>},
+      { path: 'privacy_policy', element: <PrivacyPage/>},
+      { path: 'terms_&_condetions', element: <TermsPage/>}
     ],
   },
 ]);

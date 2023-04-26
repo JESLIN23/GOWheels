@@ -12,7 +12,7 @@ import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import BusinessIcon from '@mui/icons-material/Business';
 
 import useForm from '../../hooks/use-form';
-import TextInput from '../../components/TextInput/TextInput'
+import TextInput from '../../util/TextInput/TextInput'
 import Footer from '../../components/Footer/Footer'
 
 const nameValidation = (value) => value.trim() !== '' && value.trim().length > 2;

@@ -45,7 +45,7 @@ function LoginPage() {
   const [user, setUser] = useState('');
   const [passwordConfirmIsValid, setPasswordConfirmIsValid] = useState(true);
   const [enteredPasswordConfirm, setEnteredPasswordConfirm] = useState();
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const loginParams = { data: 'login' };
   const signupParams = { data: 'signup' };
