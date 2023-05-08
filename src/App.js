@@ -12,25 +12,25 @@ import ErrorPage from './pages/ErrorPage/ErrorPage';
 import SearchPage from './pages/SearchPage/SearchPage';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
 import PrivacyPage from './pages/PrivacyPage/PrivacyPage';
-import TermsPage from './pages/TermsPage/TermsPage'
+import TermsPage from './pages/TermsPage/TermsPage';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <RootLayout />,
-    errorElement: <ErrorPage/>,
+    errorElement: <ErrorPage />,
     children: [
-      { path: '/', element: <HomePage /> },
-      { path: '/home', element: <HomePage /> },
-      { path: '/about', element: <AboutUsPage /> },
-      { path: '/FAQ', element: <FAQPage /> },
-      { path: '/offers', element: <OffersPage /> },
-      { path: '/contactus', element: <ContactPage /> },
-      { path: '/login', element: <LoginPage/> },
-      { path: '/search', element: <SearchPage/>},
-      { path: '/profile', element: <ProfilePage/>},
-      { path: '/privacy_policy', element: <PrivacyPage/>},
-      { path: '/terms_&_condetions', element: <TermsPage/>}
+      { index: true, element: <HomePage /> },
+      { path: 'home', element: <HomePage /> },
+      { path: 'about', element: <AboutUsPage /> },
+      { path: 'FAQ', element: <FAQPage /> },
+      { path: 'offers', element: <OffersPage /> },
+      { path: 'contactus', element: <ContactPage /> },
+      { path: 'login', element: <LoginPage /> },
+      { path: 'search', element: <SearchPage /> },
+      { path: 'profile', element: <ProfilePage /> },
+      { path: 'privacy_policy', element: <PrivacyPage /> },
+      { path: 'terms_&_condetions', element: <TermsPage /> },
     ],
   },
 ]);
@@ -40,4 +40,3 @@ function App() {
 }
 
 export default App;
-

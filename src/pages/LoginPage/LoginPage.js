@@ -45,7 +45,10 @@ function LoginPage() {
   const [user, setUser] = useState('');
   const [passwordConfirmIsValid, setPasswordConfirmIsValid] = useState(true);
   const [enteredPasswordConfirm, setEnteredPasswordConfirm] = useState();
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const [date, setDate] = useState(null);
+  const [dobIsTouched, setDobIsTouched] = useState(false)
 
   const loginParams = { data: 'login' };
   const signupParams = { data: 'signup' };
@@ -74,8 +77,6 @@ function LoginPage() {
     // setUser(newParams.data);
     setUser(searchParams.get('data'));
   }, [searchParams]);
-
-  const [date, setDate] = useState(null);
 
   let dobIsValid = validateDob(date);
 
@@ -255,7 +256,7 @@ function LoginPage() {
           {user === 'signup' && (
             <>
               <h2>SIGNUP</h2>
-              <Grid container xs={12} columnSpacing={{ sm: 2 }}>
+              <Grid container xs={12} columnSpacing={{ sm: 1 }}>
                 <Grid item xs={12} sm={6}>
                   <TextField
                     label='First Name'
@@ -350,8 +351,10 @@ function LoginPage() {
                         <TextField
                           {...params}
                           fullWidth
+                          onBlur={() => setDobIsTouched(true)}
                           className={styles.input}
-                          helperText={'Age should be greater than 18'}
+                          error={!dobIsValid && dobIsTouched}
+                          helperText={ !dobIsValid && dobIsTouched ? 'Age should be greater than 18' : ''}
                         />
                       )}
                     />
