@@ -23,7 +23,7 @@ function WorkPart() {
           </div>
           <div>
             <h2 className={styles.secondHeading}>Search & Book a vehicle with us</h2>
-            <p style={{ marginTop: 15 }}>
+            <p className={styles.para}>
               Use our website or apps to search & book a vehicle that suits your budget & needs
             </p>
           </div>
@@ -37,7 +37,7 @@ function WorkPart() {
           </div>
           <div>
             <h2 className={styles.secondHeading}>Pick Up your Vehicle</h2>
-            <p style={{ marginTop: 15 }}>
+            <p className={styles.para}>
               Ride from home or from any of our conveniently located sites around your city
             </p>
           </div>
@@ -51,7 +51,7 @@ function WorkPart() {
           </div>
           <div>
             <h2 className={styles.secondHeading}>Drive Your Vehicle</h2>
-            <p style={{ marginTop: 15 }}>Explore where ever you want to with your loved ones.</p>
+            <p className={styles.para}>Explore where ever you want to with your loved ones.</p>
           </div>
         </Grid>
         <Grid item xs={12} sm={6} className={styles.workContent}>
@@ -63,7 +63,7 @@ function WorkPart() {
           </div>
           <div>
             <h2 className={styles.secondHeading}>Return your Vehicle</h2>
-            <p style={{ marginTop: 15 }}>
+            <p className={styles.para}>
               Get the vehicle back to your preferred return location, and we will take it from there
             </p>
           </div>

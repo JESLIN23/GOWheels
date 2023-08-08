@@ -8,6 +8,8 @@
 }
 .icon {
     color: var(--primaryColor);
+    height: 66px !important;
+    width: 66px !important;
 }
 .container {
     display: flex;
@@ -63,9 +65,8 @@
     overflow-y: auto;
 }
 .btnWrapper {
-    height: 3.5rem;
     width: 100%;
-    padding: 0.5rem 1rem;
+    padding: 1rem;
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -74,7 +75,7 @@
     background-color: var(--btnColor);
     color: white;
     border-radius: 5px;
-    font-size: var(--h3FontSize);
+    font-size: var(--h4FontSize);
     font-weight: var(--h3FontWeight);
 }
 .btnWrapper Button:hover,
@@ -91,6 +92,7 @@
 }
 .dataWrapper h4 {
     font-size: var(--h5FontSize);
-    font-weight: var(--h3FontWeight);
+    font-weight: var(--h4FontWeight) !important;
     color: black;
+    text-transform: capitalize;
 }

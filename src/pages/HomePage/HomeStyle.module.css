@@ -91,8 +91,8 @@
 }
 
 .rentInfoWrapper h4 {
-  font-weight: 700;
-  font-size: 15px;
+  font-weight: 600;
+  font-size: 14px;
 }
 
 .rentInfoWrapper h4 span {
@@ -106,9 +106,9 @@
   background-color: #ffffff;
   color: rgb(6, 5, 4);
   border-radius: 3px;
-  font-size: 13px;
+  font-size: 12px;
   text-decoration: none;
-  font-weight: 700;
+  font-weight: 600;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
   cursor: pointer;
   display: flex;
@@ -131,6 +131,7 @@
   /* font-weight: 700;
     font-size: 13px; */
   margin-left: 0.8rem;
+  text-transform: capitalize;
 }
 
 .workWrapper {
@@ -152,13 +153,13 @@
 }
 
 .mainHeading {
-  font-weight: 900;
-  font-size: 32px;
+  font-weight: 700;
+  font-size: 28px;
   color: #5a5a5a;
 }
 .secondHeading {
-  font-weight: 700;
-  font-size: 20px;
+  font-weight: 600;
+  font-size: 17px;
   color: #4a4a4a;
 }
 .midHeading {
@@ -167,7 +168,7 @@
   color: #4a4a4a;
 }
 .thirdHeading {
-  font-weight: 600;
+  font-weight: 500;
   font-size: 18px;
   color: #3a3a3a;
 }
@@ -179,6 +180,11 @@
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   row-gap: 2rem;
+}
+
+.para {
+  font-size: 14px;
+  margin-top: 15px;
 }
 
 .workContent {
@@ -203,43 +209,25 @@
 
 /* why */
 
-.whyWrapper {
-  width: 100%;
-  height: fit-content;
-  padding: 2rem 10%;
-  background-color: #f9f9f9;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .whyContent {
   display: grid;
   grid-template-columns: 1fr 3fr;
   width: 100%;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background-color: rgba(221, 221, 221, 0.9);
+  box-shadow: 1px 2px 1px 1px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
   padding: 10px;
-}
-
-.Whycontainer {
-  width: 100%;
-  height: fit-content;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 2rem;
 }
 
 .whyWrapper {
   width: 100%;
   height: fit-content;
   padding: 2rem 10%;
-
   background-color: rgba(249, 249, 249, 0.8);
-  background-image: url('./IMG/360_F_530791803_JVBHVPfQZVdoHgEcUXEue5H24jCw4h6Q.jpg');
+  background-image: url('./IMG/Daco_4835391.png');
   background-repeat: no-repeat;
-  background-position: right;
+  background-size: cover;
+  background-position: center center;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -333,7 +321,7 @@
 
 .paraInfo {
   font-size: 17;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .im {
@@ -405,7 +393,7 @@
   font-size: 22px;
 }
 .promiseInfo p {
-  font-size: 12px;
+  font-size: 10px;
   margin-top: 1rem;
 }
 .promiseInfo ul {
@@ -434,7 +422,7 @@
 }
 .comInfo a {
   color: #ffffff;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   text-decoration: none;
   font-weight: 500;
   display: flex;
@@ -449,7 +437,7 @@
   align-items: center;
 }
 .comInfo span {
-  margin-left: 1rem;
+  margin-left: 0.7rem;
 }
 
 .comInfo a:hover,
@@ -504,7 +492,7 @@
   align-items: center;
   } */
   .line {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
 
   .findWrapper {
@@ -522,7 +510,7 @@
     width: 100%;
   }
   .cityName {
-    padding: 0.5rem 0.5rem;
+    padding: 0.4rem 0.4rem;
   }
   .cityName h3 {
     padding-left: 0.5rem;

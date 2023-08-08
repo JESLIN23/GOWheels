@@ -23,32 +23,87 @@ function BookingPart() {
   const [warningData, setWarningData] = useState('');
   const [notSelectWarning, setNotSelectWarning] = useState(false);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   let pickupLocations = {
-    Calicut: ['Home Delivery', 'Calicut Railway station', 'Calicut International Airport', 'GoWheel, Calicut'],
-    Kochin: ['Home Delivery', 'GoWheel, Edapally', 'North Railway Station', 'Cochin International Airport'],
-    Trivandrum: ['Home Delivery', 'GoWheel, Trivandram', 'Trivandram International Airport', 'Trivandram Central Railway Station'],
+    calicut: [
+      'Home Delivery',
+      'Calicut Railway station',
+      'Calicut International Airport',
+      'GoWheel Calicut',
+    ],
+    kochin: [
+      'Home Delivery',
+      'GoWheel Edapally',
+      'North Railway Station',
+      'Cochin International Airport',
+    ],
+    trivandrum: [
+      'Home Delivery',
+      'GoWheel Trivandram',
+      'Trivandram International Airport',
+      'Trivandram Central Railway Station',
+    ],
+  };
+
+  const getDate = (givenDate) => {
+    const date = new Date(givenDate);
+    const formattedDateString = date.toLocaleString('en-US', {
+      weekday: 'short',
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    });
+    return formattedDateString;
+  };
+
+  const getTime = (givenDate) => {
+    const date = new Date(givenDate);
+    const formattedDateString = date.getUTCHours();
+    if (formattedDateString > 12) {
+      return `${formattedDateString - 12}:00 AM`;
+    } else {
+      return `${formattedDateString}:00 PM`;
+    }
   };
 
   const searchVehicleHandler = () => {
-    if(!pickupPoint.location) setNotSelectWarning(true), setWarningData('Please Select Pickup Point')
-    if(!pickupDate.time) setNotSelectWarning(true), setWarningData('Please Select Pickup Date')
-    if(!dropoffPoint.location) setNotSelectWarning(true), setWarningData('Please Select Dropoff Point')
-    if(!dropoffDate.time) setNotSelectWarning(true), setWarningData('Please Select Dropoff Date')
-
-    let searchParams = {
-      pickupPoint,
-      pickupDate,
-      dropoffPoint,
-      dropoffDate
+    if (!pickupPoint?.pickup_location) {
+      setWarningData('Please Select Pickup Point');
+      setNotSelectWarning(true);
+      return;
     }
+    if (!pickupDate?.pickup_date) {
+      setWarningData('Please Select Pickup Date');
+      setNotSelectWarning(true);
+      return;
+    }
+    if (!dropoffPoint?.dropoff_location) {
+      setWarningData('Please Select Dropoff Point');
+      setNotSelectWarning(true);
+      return;
+    }
+    if (!dropoffDate?.dropoff_date) {
+      setWarningData('Please Select Dropoff Date');
+      setNotSelectWarning(true);
+      return;
+    }
+
+    console.log({
+      pickup_city: pickupPoint?.pickup_city,
+      pickup_date: pickupDate?.pickup_date,
+      dropoff_date: dropoffDate?.dropoff_date,
+    });
+    let searchParams = {
+      pickup_city: pickupPoint?.pickup_city,
+      pickup_date: pickupDate?.pickup_date,
+      dropoff_date: dropoffDate?.dropoff_date,
+    };
 
     navigate({
       pathname: '/search',
-      search: `?${createSearchParams(searchParams)}`
-    })
-
+      search: `?${createSearchParams(searchParams)}`,
+    });
   };
 
   return (
@@ -66,9 +121,9 @@ function BookingPart() {
               <div className={styles.btn} onClick={() => setSelectPickupPoint(true)}>
                 <img src={location} className={styles.logoSM} alt='logo' />
                 <input type='hidden' value={pickupPoint} />
-                <span >
-                  {pickupPoint.location
-                    ? `${pickupPoint.city} - ${pickupPoint.location}`
+                <span>
+                  {pickupPoint?.pickup_location
+                    ? `${pickupPoint?.pickup_city} - ${pickupPoint?.pickup_location}`
                     : 'Select Pickup City'}
                 </span>
               </div>
@@ -79,12 +134,14 @@ function BookingPart() {
               <h4>
                 Pickup Date&Time<span>*</span>
               </h4>
-              <div className={styles.btn}  onClick={() => setSelectPickupDate(true)}>
+              <div className={styles.btn} onClick={() => setSelectPickupDate(true)}>
                 <img src={calender} className={styles.logoSM} alt='logo' />
                 <input type='hidden' value={pickupPoint} />
                 <span>
-                  {pickupDate.time
-                    ? `${pickupDate.date} - ${pickupDate.time} - hr`
+                  {pickupDate?.pickup_date
+                    ? ` ${getDate(pickupDate?.pickup_date)} - ${getTime(
+                        pickupDate?.pickup_date,
+                      )} - hr`
                     : 'Select Pickup Date'}
                 </span>
               </div>
@@ -98,9 +155,9 @@ function BookingPart() {
               <div className={styles.btn} onClick={() => setSelectDropoffPoint(true)}>
                 <img src={location} className={styles.logoSM} alt='logo' />
                 <input type='hidden' value={pickupPoint} />
-                <span >
-                  {dropoffPoint.location
-                    ? `${dropoffPoint.city} - ${dropoffPoint.location}`
+                <span>
+                  {dropoffPoint?.dropoff_location
+                    ? `${dropoffPoint?.dropoff_city} - ${dropoffPoint?.dropoff_location}`
                     : 'Select Dropoff City'}
                 </span>
               </div>
@@ -114,9 +171,11 @@ function BookingPart() {
               <div className={styles.btn} onClick={() => setSelectDropoffDate(true)}>
                 <img src={calender} className={styles.logoSM} alt='logo' />
                 <input type='hidden' value={pickupPoint} />
-                <span >
-                  {dropoffDate.time
-                    ? `${dropoffDate.date} - ${dropoffDate.time} - hr`
+                <span>
+                  {dropoffDate?.dropoff_date
+                    ? ` ${getDate(dropoffDate?.dropoff_date)} - ${getTime(
+                        dropoffDate?.dropoff_date,
+                      )} - hr`
                     : 'Select Dropoff Date'}
                 </span>
               </div>
@@ -135,6 +194,10 @@ function BookingPart() {
           data={pickupLocations}
           PickupLocationInfo={(loc) => {
             setPickupPoint(loc);
+            setDropoffPoint({
+              dropoff_city: loc?.pickup_city,
+              dropoff_location: loc?.pickup_location,
+            });
             setSelectPickupPoint(false);
             setSelectPickupDate(true);
           }}
@@ -147,12 +210,12 @@ function BookingPart() {
       )}
 
       {selectPickupDate &&
-        (pickupPoint.location ? (
+        (pickupPoint?.pickup_location ? (
           <PickupDate
             PickupDateInfo={(date) => {
               setPickupDate(date);
               setSelectPickupDate(false);
-              setSelectDropoffPoint(true);
+              setSelectDropoffDate(true);
             }}
             onClose={(info) => {
               setSelectPickupDate(false);
@@ -161,12 +224,14 @@ function BookingPart() {
             }}
           />
         ) : (
-          (setSelectPickupDate(false), setNotSelectWarning(true), setWarningData('Please Select Pickup point'))
+          (setSelectPickupDate(false),
+          setNotSelectWarning(true),
+          setWarningData('Please Select Pickup point'))
         ))}
 
       {selectDropoffPoint &&
-        (pickupPoint.location ? (
-          pickupDate.time ? (
+        (pickupPoint?.pickup_location ? (
+          pickupDate?.pickup_date ? (
             <DropoffPoint
               data={pickupLocations}
               DropoffLocationInfo={(loc) => {
@@ -181,36 +246,53 @@ function BookingPart() {
               }}
             />
           ) : (
-            (setSelectDropoffPoint(false), setWarningData('Please Select Pickup Date'), setNotSelectWarning(true))
+            (setSelectDropoffPoint(false),
+            setWarningData('Please Select Pickup Date'),
+            setNotSelectWarning(true))
           )
         ) : (
-          (setSelectDropoffPoint(false), setWarningData('Please Select Pickup Point'), setNotSelectWarning(true))
+          (setSelectDropoffPoint(false),
+          setWarningData('Please Select Pickup Point'),
+          setNotSelectWarning(true))
         ))}
 
       {selectDropoffDate &&
-        (pickupPoint.location ? (
-          pickupDate.time ? (
-            dropoffPoint.location ? (
-              <DropoffDate
-                data={pickupDate}
-                DropoffDateInfo={(date) => {
-                  setDropoffDate(date);
-                  setSelectDropoffDate(false);
-                }}
-                onClose={(info) => {
-                  setSelectDropoffDate(false);
-                  setWarningData(info);
-                  setNotSelectWarning(true);
-                }}
-              />
+        (!dropoffDate?.dropoff_date ? (
+          pickupPoint?.pickup_location ? (
+            pickupDate?.pickup_date ? (
+              dropoffPoint?.dropoff_location ? (
+                <DropoffDate
+                  data={{
+                    date: pickupDate?.pickup_date,
+                    time: getTime(pickupDate?.pickup_date),
+                  }}
+                  DropoffDateInfo={(date) => {
+                    setDropoffDate(date);
+                    setSelectDropoffDate(false);
+                  }}
+                  onClose={(info) => {
+                    setSelectDropoffDate(false);
+                    setWarningData(info);
+                    setNotSelectWarning(true);
+                  }}
+                />
+              ) : (
+                (setSelectDropoffDate(false),
+                setWarningData('Please Select Dropoff Point'),
+                setNotSelectWarning(true))
+              )
             ) : (
-              (setSelectDropoffDate(false), setWarningData('Please Select Dropoff Point'), setNotSelectWarning(true))
+              (setSelectDropoffDate(false),
+              setWarningData('Please Select Pickup Date'),
+              setNotSelectWarning(true))
             )
           ) : (
-            (setSelectDropoffDate(false), setWarningData('Please Select Pickup Date'), setNotSelectWarning(true))
+            (setSelectDropoffDate(false),
+            setWarningData('Please Select Pickup Point'),
+            setNotSelectWarning(true))
           )
         ) : (
-          (setSelectDropoffDate(false), setWarningData('Please Select Pickup Point'), setNotSelectWarning(true))
+          setSelectDropoffDate(false)
         ))}
 
       {notSelectWarning && (

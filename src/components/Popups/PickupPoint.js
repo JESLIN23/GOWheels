@@ -8,7 +8,7 @@ function PickupPoint({ data, PickupLocationInfo, onClose }) {
   const [pickupLocation, setPickupLocation] = useState(null);
 
   if (pickupLOC && pickupLocation) {
-    PickupLocationInfo({ city: pickupLOC[0], location: pickupLocation });
+    PickupLocationInfo({ pickup_city: pickupLOC[0], pickup_location: pickupLocation });
   }
 
   const popupCloseHandler = () => {
@@ -24,13 +24,13 @@ function PickupPoint({ data, PickupLocationInfo, onClose }) {
         {!pickupLOC &&
           Object.entries(data).map((val, index) => (
             <div key={index} className={styles.dataWrapper} onClick={() => setPickupLOC(val)}>
-              <h3>{val[0]}</h3>
+              <h4>{val[0]}</h4>
             </div>
           ))}
         {pickupLOC &&
           pickupLOC[1].map((val, index) => (
             <div key={index} className={styles.dataWrapper} onClick={() => setPickupLocation(val)}>
-              <h3>{val}</h3>
+              <h4>{val}</h4>
             </div>
           ))}
       </div>

@@ -14,9 +14,9 @@
 
 .PagesWrapper {
   width: 100%;
-  height: calc(100% - 6rem);
+  height: calc(100% - 5rem);
   background-color: white;
-  margin-top: 6rem;
+  margin-top: 5rem;
 }
 
 @media screen and (max-width: 780px) {

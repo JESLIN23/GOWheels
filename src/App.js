@@ -13,6 +13,7 @@ import SearchPage from './pages/SearchPage/SearchPage';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
 import PrivacyPage from './pages/PrivacyPage/PrivacyPage';
 import TermsPage from './pages/TermsPage/TermsPage';
+import { ROUTES } from './const';
 
 const router = createBrowserRouter([
   {
@@ -21,16 +22,16 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { index: true, element: <HomePage /> },
-      { path: 'home', element: <HomePage /> },
-      { path: 'about', element: <AboutUsPage /> },
-      { path: 'FAQ', element: <FAQPage /> },
-      { path: 'offers', element: <OffersPage /> },
-      { path: 'contactus', element: <ContactPage /> },
-      { path: 'login', element: <LoginPage /> },
-      { path: 'search', element: <SearchPage /> },
-      { path: 'profile', element: <ProfilePage /> },
-      { path: 'privacy_policy', element: <PrivacyPage /> },
-      { path: 'terms_&_condetions', element: <TermsPage /> },
+      { path: `${ROUTES.HOME}`, element: <HomePage /> },
+      { path: `${ROUTES.ABOUTUS}`, element: <AboutUsPage /> },
+      { path: `${ROUTES.FAQ}`, element: <FAQPage /> },
+      { path: `${ROUTES.OFFERS}`, element: <OffersPage /> },
+      { path: `${ROUTES.CONTACTUS}`, element: <ContactPage /> },
+      { path: `${ROUTES.LOGIN}`, element: <LoginPage /> },
+      { path: `${ROUTES.SEARCH}`, element: <SearchPage /> },
+      { path: `${ROUTES.PROFILE}`, element: <ProfilePage /> },
+      { path: `${ROUTES.PRIVACY_POLICY}`, element: <PrivacyPage /> },
+      { path: `${ROUTES.TERMS_CONDETIONS}`, element: <TermsPage /> },
     ],
   },
 ]);

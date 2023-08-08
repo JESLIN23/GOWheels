@@ -24,7 +24,7 @@ function Cities() {
           <Grid item xs={6} sm={4} md={3} key={index}>
             <div className={styles.cityName}>
               <LocationOnIcon fontSize='medium' />
-              <h3 className={styles.thirdHeading} style={{ fondWeight: 600 }}>
+              <h3 className={styles.thirdHeading} style={{ fondWeight: 500 }}>
                 {city}
               </h3>
             </div>

@@ -1,139 +1,148 @@
 .container {
-    height: fit-content;
-    width: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  height: fit-content;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .profileWrapper {
-    height: fit-content;
-    width: 100%;
-    max-width: 1000px;
-    padding: 1rem;
-    margin: 1rem;
-    display: flex;
-    flex-direction: column;
-    border-radius: 5px;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  height: fit-content;
+  width: 100%;
+  max-width: 1000px;
+  padding: 1rem;
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.pageHeader {
+  height: fit-content;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 .profileWrapper h3 {
-    font-size: var(--h3FontSize);
-    font-weight: var(--h3FontWeight);
+  font-size: var(--h3FontSize);
+  font-weight: var(--h3FontWeight);
 }
 .profileWrapper h5 {
-    font-size: var(--h5FontSize);
-    font-weight: var(--h4FontWeight);
+  font-size: var(--h5FontSize);
+  font-weight: var(--h4FontWeight);
 }
 .profileImage {
-    height: fit-content;
-    width: 100%;
-    padding: 1rem;
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  cursor: pointer;
 }
 .profileEdit {
-    height: fit-content;
-    width: 100%;
-    padding: 1rem 10%;
+  height: fit-content;
+  width: 100%;
+  padding: 1rem 10%;
 }
 
 /* input field */
 
-.input label{
-    font-weight: 700;
-    font-size: 14px;
-    color: black;
-  }
-  .input label:hover,
-  .input label:active{
-    color: var(--secondaryColor);
-  }
-  .input fieldset{
-    /* border: 2px solid var(--primaryColor); */
-    border-radius: 5px;
-  }
-  .input fieldset:hover,
-  .input fieldset:active{
-    border: 2px solid var(--secondaryColor);
-    border-radius: 5px;
-  }
-  .input input{
-    color: black;
-    font-weight: var(--h3FontWeight);
-    font-size: var(--h5FontSize);
-  }
+.input label {
+  font-weight: 700;
+  font-size: 14px;
+  color: black;
+}
+.input label:hover,
+.input label:active {
+  color: var(--secondaryColor);
+}
+.input fieldset {
+  /* border: 2px solid var(--primaryColor); */
+  border-radius: 5px;
+}
+.input fieldset:hover,
+.input fieldset:active {
+  border: 2px solid var(--secondaryColor);
+  border-radius: 5px;
+}
+.input input {
+  color: black;
+  font-weight: var(--h3FontWeight);
+  font-size: var(--h5FontSize);
+}
 
-  /* save button  */
+/* save button  */
 
-  .btnWrapper {
-    height: fit-content;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 2rem;
-  }
-  .btnWrapper Button {
-    padding: 0.5rem 1rem;
-    background-color: var(--primaryColor);
-    font-weight: 700;
-    color: white;
-  }
-  .btnWrapper Button:hover {
-    background-color: var(--secondaryColor);
-  }
+.btnWrapper {
+  height: fit-content;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.btnWrapper Button {
+  padding: 0.5rem 1rem;
+  background-color: var(--primaryColor);
+  font-weight: 700;
+  color: white;
+}
+.btnWrapper Button:hover {
+  background-color: var(--secondaryColor);
+}
 
-  .uploader {
-    opacity: 0;
-    position: absolute;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    }
+.uploader {
+  opacity: 0;
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+}
 
-    .licenseWrapper {
-        width: 100%;
-        height: fit-content;
-    }
+.licenseWrapper {
+  width: 100%;
+  height: fit-content;
+}
 
-  .license {
-    width: 100%;
-    height: 20rem;
+.license {
+  width: 100%;
+  height: 20rem;
+  position: relative;
+  border-radius: 5px;
+  border: 1px solid #888888;
+}
+
+.licenseImg {
+  height: 100%;
+  width: 100%;
+}
+.span {
+  font-size: var(--h4FontSize);
+  font-weight: var(--h4FontSize);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.messageWrapper {
+  height: 3rem;
+  width: 100%;
+  padding: 1rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (max-width: 900px) {
+  .profileImage {
     position: relative;
-    border-radius: 5px;
-    border: 1px solid #888888;
-
-  }
-
-  .licenseImg {
-    height: 100%;
-    width: 100%;
-  }
-  .span {
-    font-size: var(--h4FontSize);
-    font-weight: var(--h4FontSize);
-    position: absolute;
-     top:50%; 
-    left:50%; 
-    transform:translate(-50%, -50%); 
-  }
-  .messageWrapper {
-    height: 3rem;
-    width: 100%;
-    padding: 1rem auto;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 5rem auto;
   }
-
-@media screen and (max-width: 900px) {
-
-    .profileImage {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 5rem auto;
-    }
 }

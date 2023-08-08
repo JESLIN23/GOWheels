@@ -61,7 +61,7 @@ const StyledTab = styled((props) => <Tab disableRipple {...props} />)(({ theme }
   textTransform: 'upper',
   width: '25%',
   fontWeight: theme.typography.fontWeightRegular,
-  fontSize: theme.typography.pxToRem(20),
+  fontSize: theme.typography.pxToRem(16),
   marginRight: theme.spacing(1),
   color: 'rgba(255, 255, 255, 0.7)',
   '&.Mui-selected': {
@@ -137,14 +137,14 @@ export default function FullWidthTabs() {
           allowScrollButtonsMobile
         >
           <StyledTab
-            sx={{ fontWeight: '600' }}
+          
             label='General'
             className={styles.tab}
             {...a11yProps(0)}
           />
-          <StyledTab sx={{ fontWeight: '600' }} label='Booking' {...a11yProps(1)} />
-          <StyledTab sx={{ fontWeight: '600' }} label='Payment & Refund' {...a11yProps(2)} />
-          <StyledTab sx={{ fontWeight: '600' }} label='Your Trip' {...a11yProps(3)} />
+          <StyledTab label='Booking' {...a11yProps(1)} />
+          <StyledTab label='Payment & Refund' {...a11yProps(2)} />
+          <StyledTab label='Your Trip' {...a11yProps(3)} />
         </StyledTabs>
       </AppBar>
 
@@ -158,10 +158,10 @@ export default function FullWidthTabs() {
                 onChange={handleChangeExpand(`panel${i}`)}
               >
                 <AccordionSummary aria-controls='panel1a-content' id='panel1a-header'>
-                  <Typography sx={{ color: 'black', fontWeight: '600' }}>{qns.head}</Typography>
+                  <Typography sx={{ color: 'black' }}>{qns.head}</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <Typography sx={{ color: 'black', fontWeight: '600' }}>{qns.info}</Typography>
+                  <Typography sx={{ color: 'black' }}>{qns.info}</Typography>
                 </AccordionDetails>
               </Accordion>
             );
@@ -177,10 +177,10 @@ export default function FullWidthTabs() {
                 onChange={handleChangeExpand(`panel${i}`)}
               >
                 <AccordionSummary aria-controls='panel1a-content' id='panel1a-header'>
-                  <Typography sx={{ color: 'black', fontWeight: '600' }}>{qns.head}</Typography>
+                  <Typography sx={{ color: 'black' }}>{qns.head}</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <Typography sx={{ color: 'black', fontWeight: '600' }}>{qns.info}</Typography>
+                  <Typography sx={{ color: 'black' }}>{qns.info}</Typography>
                 </AccordionDetails>
               </Accordion>
             );
@@ -196,10 +196,10 @@ export default function FullWidthTabs() {
                 onChange={handleChangeExpand(`panel${i}`)}
               >
                 <AccordionSummary aria-controls='panel1a-content' id='panel1a-header'>
-                  <Typography sx={{ color: 'black', fontWeight: '600' }}>{qns.head}</Typography>
+                  <Typography sx={{ color: 'black' }}>{qns.head}</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <Typography sx={{ color: 'black', fontWeight: '600' }}>{qns.info}</Typography>
+                  <Typography sx={{ color: 'black' }}>{qns.info}</Typography>
                 </AccordionDetails>
               </Accordion>
             );
@@ -215,10 +215,10 @@ export default function FullWidthTabs() {
                 onChange={handleChangeExpand(`panel${i}`)}
               >
                 <AccordionSummary aria-controls='panel1a-content' id='panel1a-header'>
-                  <Typography sx={{ color: 'black', fontWeight: '600' }}>{qns.head}</Typography>
+                  <Typography sx={{ color: 'black' }}>{qns.head}</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <Typography sx={{ color: 'black', fontWeight: '600' }}>{qns.info}</Typography>
+                  <Typography sx={{ color: 'black' }}>{qns.info}</Typography>
                 </AccordionDetails>
               </Accordion>
             );
