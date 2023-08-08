@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import PopupLayout from '../layout/PopupLayout/PopupLayout';
 import styles from './styles.module.css';
 import Button from '@mui/material/Button';
-
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { CalendarPicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 // import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { ClockPicker } from '@mui/x-date-pickers';
-
+import { getBookingDateInIsoFomat } from '../../helpers/DateConverters';
 
 function PickupDate({ PickupDateInfo, onClose }) {
   const [pickupDate, setPickupDate] = useState('');
@@ -27,7 +26,9 @@ function PickupDate({ PickupDateInfo, onClose }) {
   }
 
   if (pickupDate && pickupTime) {
-    PickupDateInfo({ date: new Date(pickupDate.$d).toDateString(), time: pickupTime.$H });
+    PickupDateInfo({
+      pickup_date: getBookingDateInIsoFomat(pickupDate.$d, pickupTime.$H),
+    });
   }
 
   const popupCloseHandler = () => {
@@ -41,7 +42,7 @@ function PickupDate({ PickupDateInfo, onClose }) {
       </div>
       <div className={styles.contentWrapper}>
         {!pickupDate && (
-          <LocalizationProvider dateAdapter={AdapterDayjs} >
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
             <CalendarPicker
               value={pickupDate}
               onChange={(newValue) => setPickupDate(newValue)}

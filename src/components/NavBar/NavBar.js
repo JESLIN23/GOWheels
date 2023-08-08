@@ -3,43 +3,35 @@ import { NavLink, useNavigate, createSearchParams } from 'react-router-dom';
 
 import styles from './NavBar.module.css';
 // import logo from './c785ba2145e9497eb75dff1d147873ee.png'
-
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import Divider from '@mui/material/Divider';
-import Paper from '@mui/material/Paper';
-import MenuList from '@mui/material/MenuList';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import LogoutIcon from '@mui/icons-material/Logout';
+import {
+  Menu,
+  MenuItem,
+  Divider,
+  Paper,
+  MenuList,
+  ListItemIcon,
+  ListItemText,
+  Avatar,
+} from '@mui/material';
 import PrivacyTipIcon from '@mui/icons-material/PrivacyTip';
 import ArticleIcon from '@mui/icons-material/Article';
-import PermIdentityIcon from '@mui/icons-material/PermIdentity';
-import AlertLayout from '../layout/AlertLayout/AlertLayout'
-
+import userContextHook from '../../hooks/userContextHook';
+import { ROUTES } from '../../const';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 function NavBar() {
   const [showMenu, setShowMenu] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [logout, setLogout] = useState(false)
 
   const navigate = useNavigate();
-
   const loginParams = { data: 'login' };
-  const signupParams = { data: 'signup' };
+  const { loggedIn } = userContextHook();
 
   const redirectToLoginPage = () => {
     setShowMenu(false);
     navigate({
-      pathname: '/login',
+      pathname: `${ROUTES.LOGIN}`,
       search: `?${createSearchParams(loginParams)}`,
-    });
-  };
-  const redirectToSignupPage = () => {
-    setShowMenu(false);
-    navigate({
-      pathname: '/login',
-      search: `?${createSearchParams(signupParams)}`,
     });
   };
 
@@ -67,31 +59,19 @@ function NavBar() {
 
   const profilePageHandler = () => {
     setShowMenu(false);
-    navigate('/profile')
-    handleClose()
-  }
+    navigate(ROUTES.PROFILE);
+    handleClose();
+  };
   const termsPageHandler = () => {
     setShowMenu(false);
-    navigate('/terms_&_condetions')
-    handleClose()
-  }
+    navigate(ROUTES.TERMS_CONDETIONS);
+    handleClose();
+  };
   const privacyPageHandler = () => {
     setShowMenu(false);
-    navigate('/privacy_policy')
-    handleClose()
-  }
-
-  const logoutHandler = () => {
-    setShowMenu(false);
-    setLogout(true)
-    handleClose()
-  }
-  const logoutConfirmHandler = () => {
-    setLogout(true)
-    handleClose()
-    navigate('/home')
-  }
- 
+    navigate(ROUTES.PRIVACY_POLICY);
+    handleClose();
+  };
 
   return (
     <div className={styles.NavBarWrapper}>
@@ -109,7 +89,7 @@ function NavBar() {
             <ul>
               <li>
                 <NavLink
-                  to='/home'
+                  to={ROUTES.HOME}
                   className={({ isActive }) => (isActive ? styles.active : undefined)}
                   onClick={() => setShowMenu(false)}
                   end
@@ -119,7 +99,7 @@ function NavBar() {
               </li>
               <li>
                 <NavLink
-                  to='/about'
+                  to={ROUTES.ABOUTUS}
                   className={({ isActive }) => (isActive ? styles.active : undefined)}
                   end
                   onClick={() => setShowMenu(false)}
@@ -129,7 +109,7 @@ function NavBar() {
               </li>
               <li>
                 <NavLink
-                  to='/FAQ'
+                  to={ROUTES.FAQ}
                   className={({ isActive }) => (isActive ? styles.active : undefined)}
                   end
                   onClick={() => setShowMenu(false)}
@@ -139,7 +119,7 @@ function NavBar() {
               </li>
               <li>
                 <NavLink
-                  to='/offers'
+                  to={ROUTES.OFFERS}
                   className={({ isActive }) => (isActive ? styles.active : undefined)}
                   end
                   onClick={() => setShowMenu(false)}
@@ -149,7 +129,7 @@ function NavBar() {
               </li>
               <li>
                 <NavLink
-                  to='/contactus'
+                  to={ROUTES.CONTACTUS}
                   className={({ isActive }) => (isActive ? styles.active : undefined)}
                   end
                   onClick={() => setShowMenu(false)}
@@ -157,26 +137,11 @@ function NavBar() {
                   Contact Us
                 </NavLink>
               </li>
-              <li className={styles.login}>
-                <button onClick={redirectToLoginPage} className={styles.btn} end>
-                  Login
-                </button>
-
-                <button onClick={redirectToSignupPage} className={styles.btn} end>
-                  Signup
-                </button>
-              </li>
               <li>
-                <button
-                  id='basic-button'
-                  aria-controls={open ? 'basic-menu' : undefined}
-                  aria-haspopup='true'
-                  aria-expanded={open ? 'true' : undefined}
-                  onClick={handleClick}
-                  className={styles.btn}
-                >
-                  Account
-                </button>
+                <span onClick={handleClick} className={styles.headerText}>
+                  Info
+                  <KeyboardArrowDownIcon className={styles.headerText} />
+                </span>
                 <Menu
                   id='basic-menu'
                   anchorEl={anchorEl}
@@ -188,15 +153,8 @@ function NavBar() {
                 >
                   <Paper sx={{ width: 200, maxWidth: '100%' }}>
                     <MenuList>
-                      <MenuItem onClick={profilePageHandler}>
-                        <ListItemIcon>
-                          <PermIdentityIcon fontSize='small' />
-                        </ListItemIcon>
-                        <ListItemText>My Profile</ListItemText>
-                      </MenuItem>
-                      <Divider />
                       <MenuItem onClick={termsPageHandler}>
-                        <ListItemIcon >
+                        <ListItemIcon>
                           <ArticleIcon fontSize='small' />
                         </ListItemIcon>
                         <ListItemText>Terms & Conditions</ListItemText>
@@ -208,29 +166,26 @@ function NavBar() {
                         </ListItemIcon>
                         <ListItemText>Privacy Policy</ListItemText>
                       </MenuItem>
-                      <Divider />
-                      <MenuItem onClick={logoutHandler}>
-                        <ListItemIcon>
-                          <LogoutIcon fontSize='small' />
-                        </ListItemIcon>
-                        <ListItemText>Logout</ListItemText>
-                      </MenuItem>
                     </MenuList>
                   </Paper>
                 </Menu>
               </li>
+              {!loggedIn && (
+                <li>
+                  <span onClick={redirectToLoginPage} className={styles.loginText}>
+                    Login
+                  </span>
+                </li>
+              )}
+              {loggedIn && (
+                <li>
+                  <Avatar className={styles.avatar} alt='Remy Sharp' src='' onClick={profilePageHandler} />
+                </li>
+              )}
             </ul>
           </nav>
         </header>
       </div>
-
-      {logout && <AlertLayout
-        head='Logout Alert'
-        message='Are you sure you want to continue ? '
-        handleClose={() => setLogout(false)}
-        handleAgree={logoutConfirmHandler}
-      />}
-
     </div>
   );
 }

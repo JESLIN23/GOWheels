@@ -43,7 +43,7 @@ function Footer() {
         </Grid>
         <Grid item xs={12} sm={6} md={3} className={styles.footerContent}>
           <div className={styles.comInfo}>
-            <h4>INFORMATION</h4>
+            <h5>INFORMATION</h5>
             <div className={styles.lineFooter}></div>
             <ul>
               <li>
@@ -66,7 +66,7 @@ function Footer() {
         </Grid>
         <Grid item xs={12} sm={6} md={3} className={styles.footerContent}>
           <div className={styles.comInfo}>
-            <h4>CUSTOMER SUPPORT</h4>
+            <h5>CUSTOMER SUPPORT</h5>
             <div className={styles.lineFooter}></div>
             <ul>
               <li>
@@ -89,7 +89,7 @@ function Footer() {
         </Grid>
         <Grid item xs={12} sm={6} md={3} className={styles.footerContent}>
           <div className={styles.comInfo}>
-            <h4>HAVE QUESTION</h4>
+            <h5>HAVE QUESTION</h5>
             <div className={styles.lineFooter}></div>
             <ul>
               <li>
@@ -117,8 +117,8 @@ function Footer() {
         <Grid item xs={12}>
           <div className={styles.line} style={{ color: '#18776D' }}></div>
         </Grid>
-        <Grid xs={12} style={{ textAlign: 'center', fontSize: 14 }}>
-          <p>Copyright @2023 GOToday</p>
+        <Grid xs={12} style={{ textAlign: 'center', fontSize: 12 }}>
+          <p>Copyright @2023 GOWheels</p>
         </Grid>
       </Grid>
     </div>

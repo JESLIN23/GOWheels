@@ -1,25 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import {
+  createSearchParams,
+  Link,
+  useNavigate,
+  useSearchParams,
+  useLocation,
+} from 'react-router-dom';
+
 import styles from './LoginStyle.module.css';
 import Footer from '../../components/Footer/Footer';
 import useForm from '../../hooks/use-form';
-import { Grid, TextField } from '@mui/material';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import { createSearchParams, Link, useNavigate, useSearchParams } from 'react-router-dom';
-import Button from '@mui/material/Button';
-import MenuItem from '@mui/material/MenuItem';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-
+import Loader from '../../util/Loading/loading';
+import UserContext from '../../context/UserContext';
+import {
+  Button,
+  InputAdornment,
+  FormControl,
+  IconButton,
+  InputLabel,
+  OutlinedInput,
+  Grid,
+  TextField,
+  FormHelperText,
+} from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import InputAdornment from '@mui/material/InputAdornment';
-import IconButton from '@mui/material/IconButton';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
+import { ROUTES } from '../../const';
 
 // import styled from '@emotion/styled';
 
@@ -29,39 +35,34 @@ const validateEmail = (value) =>
 const validatePassword = (value) => value.trim().length > 7;
 const validateName = (value) => value.trim().length !== 0;
 const validatePhone = (value) => value.trim().length === 10 && /^[4-9]+[0-9]/i.test(value.trim());
-const validateGender = (value) => value !== 'male' || 'female' || 'other';
 const validatePC = (value, password) => value.length > 7 && value === password;
-const validateDob = (value) => {
-  let date = Date.now() - new Date(value).getTime();
-  let age = new Date(date).getFullYear() - 1970;
-
-  return value !== null && age > 17;
-};
 
 function LoginPage() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || '/';
+  const { initiateLogin, initiateSignup } = useContext(UserContext);
 
   const [user, setUser] = useState('');
   const [passwordConfirmIsValid, setPasswordConfirmIsValid] = useState(true);
   const [enteredPasswordConfirm, setEnteredPasswordConfirm] = useState();
   const [showPassword, setShowPassword] = useState(false);
-
-  const [date, setDate] = useState(null);
-  const [dobIsTouched, setDobIsTouched] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
+  const [loginError, setLoginError] = useState(null);
 
   const loginParams = { data: 'login' };
   const signupParams = { data: 'signup' };
 
   const redirectToLogin = () => {
     navigate({
-      pathname: '/login',
+      pathname: `${ROUTES.LOGIN}`,
       search: `?${createSearchParams(loginParams)}`,
     });
   };
   const redirectToSignup = () => {
     navigate({
-      pathname: '/login',
+      pathname: `${ROUTES.LOGIN}`,
       search: `?${createSearchParams(signupParams)}`,
     });
   };
@@ -77,8 +78,6 @@ function LoginPage() {
     // setUser(newParams.data);
     setUser(searchParams.get('data'));
   }, [searchParams]);
-
-  let dobIsValid = validateDob(date);
 
   const {
     value: enteredEmail,
@@ -114,22 +113,6 @@ function LoginPage() {
     // inputResetHandler: secondnameResetHandler,
   } = useForm(validateName);
   const {
-    value: selectedGender,
-    isValid: genderIsValid,
-    hasError: genderHasError,
-    inputChangeHandler: genderChangeHandler,
-    inputBlurHandler: genderBlurHandler,
-    // inputResetHandler: genderResetHandler,
-  } = useForm(validateGender);
-  // const {
-  //   value: selectedDob,
-  //   isValid: dobIsValid,
-  //   hasError: dobHasError,
-  //   inputChangeHandler: dobChangeHandler,
-  //   inputBlurHandler: dobBlurHandler,
-  //   // inputResetHandler: dobResetHandler,
-  // } = useForm(validateDob);
-  const {
     value: enteredPhone,
     isValid: phoneIsValid,
     hasError: phoneHasError,
@@ -137,14 +120,6 @@ function LoginPage() {
     inputBlurHandler: phoneBlurHandler,
     // inputResetHandler: phoneResetHandler,
   } = useForm(validatePhone);
-  // const {
-  //   value: enteredPasswordConfirm,
-  //   // isValid: passwordConfirmIsValid,
-  //   // hasError: passwordConfirmHasError,
-  //   inputChangeHandler: passwordConfirmChangeHandler,
-  //   inputBlurHandler: passwordConfirmBlurHandler,
-  //   // inputResetHandler: passwordConfirmResetHandler,
-  // } = useForm(validatePasswordConfirm);
 
   const passwordConfirmBlurHandler = () => {
     setPasswordConfirmIsValid(validatePC(enteredPasswordConfirm, enteredPassword));
@@ -160,17 +135,40 @@ function LoginPage() {
     passwordIsValid &&
     firstnameIsValid &&
     secondnameIsValid &&
-    genderIsValid &&
     phoneIsValid &&
-    dobIsValid &&
     passwordConfirmIsValid
   ) {
     signupFormIsValid = true;
   }
 
-  const userLoginHandler = () => {};
+  const userLoginHandler = async () => {
+    setIsLoading(true);
+    try {
+      await initiateLogin({ email: enteredEmail, password: enteredPassword });
+      navigate(from, { replace: true });
+    } catch (error) {
+      setLoginError(error?.message);
+    }
+    setIsLoading(false);
+  };
 
-  const userSignupHandler = () => {};
+  const userSignupHandler = async () => {
+    setIsLoading(true);
+    try {
+      await initiateSignup({
+        firstName: enteredFirstname,
+        secondName: enteredSecondname,
+        email: enteredEmail,
+        phone: enteredPhone,
+        password: enteredPassword,
+        passwordConfirm: enteredPasswordConfirm,
+      });
+      navigate(from, { replace: true });
+    } catch (error) {
+      setLoginError(error?.message);
+    }
+    setIsLoading(false);
+  };
 
   return (
     <div className={styles.container}>
@@ -178,7 +176,7 @@ function LoginPage() {
         <div className={styles.login}>
           {user === 'login' && (
             <>
-              <h2>LOGIN</h2>
+              <h3>LOGIN</h3>
               <Grid container xs={12}>
                 <Grid item xs={12}>
                   <TextField
@@ -211,8 +209,6 @@ function LoginPage() {
                       sx={{ mb: 2 }}
                       type={showPassword ? 'text' : 'password'}
                       className={styles.input}
-                      error={passwordHasError}
-                      helperText={passwordHasError ? 'Password is incorrect' : ''}
                       endAdornment={
                         <InputAdornment position='end'>
                           <IconButton
@@ -227,27 +223,24 @@ function LoginPage() {
                       }
                       label='Password'
                     />
+                    <FormHelperText id='outlined-weight-helper-text' error={Boolean(loginError)}>
+                      {loginError ? loginError : ''}
+                    </FormHelperText>
                   </FormControl>
                 </Grid>
                 <div className={styles.forget}>
-                  <FormGroup>
-                    <FormControlLabel
-                      className={styles.fogetLink}
-                      control={<Checkbox />}
-                      label='Remember Password?'
-                    />
-                  </FormGroup>
                   <Link to='#'>Forget Password?</Link>
                 </div>
                 <div className={styles.btn}>
                   <Button disabled={!loginFormIsValid} onClick={userLoginHandler}>
+                    <Loader isOpen={isLoading} />
                     login
                   </Button>
                 </div>
                 <div className={styles.redirect}>
-                  <h5>
+                  <h6>
                     New User? <span onClick={redirectToSignup}> SIGNUP</span>
-                  </h5>
+                  </h6>
                 </div>
               </Grid>
             </>
@@ -255,7 +248,7 @@ function LoginPage() {
 
           {user === 'signup' && (
             <>
-              <h2>SIGNUP</h2>
+              <h3>SIGNUP</h3>
               <Grid container xs={12} columnSpacing={{ sm: 1 }}>
                 <Grid item xs={12} sm={6}>
                   <TextField
@@ -291,24 +284,6 @@ function LoginPage() {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
-                    id='outlined-select-currency'
-                    select
-                    label='Gender'
-                    defaultValue={selectedGender || ''}
-                    onChange={genderChangeHandler}
-                    onBlur={genderBlurHandler}
-                    error={genderHasError}
-                    fullWidth
-                    className={styles.input}
-                    helperText={genderHasError ? 'Please select your gender' : ''}
-                  >
-                    <MenuItem value={'male'}>male</MenuItem>
-                    <MenuItem value={'female'}>female</MenuItem>
-                    <MenuItem value={'other'}>other</MenuItem>
-                  </TextField>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
                     label='Email'
                     name='email'
                     defaultValue={enteredEmail || ''}
@@ -338,27 +313,6 @@ function LoginPage() {
                     error={phoneHasError}
                     helperText={phoneHasError ? 'Please enter a valid phone number' : ''}
                   />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker
-                      label='Date of Birth'
-                      onChange={(value) => {
-                        setDate(value);
-                      }}
-                      value={date || ''}
-                      renderInput={(params) => (
-                        <TextField
-                          {...params}
-                          fullWidth
-                          onBlur={() => setDobIsTouched(true)}
-                          className={styles.input}
-                          error={!dobIsValid && dobIsTouched}
-                          helperText={ !dobIsValid && dobIsTouched ? 'Age should be greater than 18' : ''}
-                        />
-                      )}
-                    />
-                  </LocalizationProvider>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <FormControl fullWidth variant='outlined'>
@@ -426,13 +380,14 @@ function LoginPage() {
                 </Grid>
                 <div className={styles.btn}>
                   <Button disabled={!signupFormIsValid} onClick={userSignupHandler}>
+                    <Loader isOpen={isLoading} />
                     SIGNUP
                   </Button>
                 </div>
                 <div className={styles.redirect}>
-                  <h5>
+                  <h6>
                     Already have an account? <span onClick={redirectToLogin}> LOGIN</span>
-                  </h5>
+                  </h6>
                 </div>
               </Grid>
             </>

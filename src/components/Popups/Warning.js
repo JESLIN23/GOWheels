@@ -19,7 +19,7 @@ function notSelectData(props) {
           <h2>{props.data}</h2>
         </div>
         <div className={styles.btnWrapper}>
-          <Button style={{padding: '0 1.5rem'}} onClick={popupCloseHandler}>ok</Button>
+          <Button  onClick={popupCloseHandler}>ok</Button>
         </div>
       </div>
     </PopupLayout>
