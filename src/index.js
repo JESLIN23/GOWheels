@@ -5,15 +5,19 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { UserProvider } from './context/UserContext';
 import { AlertMessageProvider } from './context/AlertMessageContext';
+import store from './redux/index';
+import { Provider } from 'react-redux';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <AlertMessageProvider>
-      <UserProvider>
-        <App />
-      </UserProvider>
-    </AlertMessageProvider>
+    <Provider store={store}>
+      <AlertMessageProvider>
+        <UserProvider>
+          <App />
+        </UserProvider>
+      </AlertMessageProvider>
+    </Provider>
   </React.StrictMode>,
 );
 

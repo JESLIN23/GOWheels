@@ -1,194 +1,302 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './SearchPage.module.css';
 import Footer from '../../components/Footer/Footer';
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import { ToggleButton, ToggleButtonGroup, Button } from '@mui/material';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import AirlineSeatReclineExtraIcon from '@mui/icons-material/AirlineSeatReclineExtra';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LocalGasStationIcon from '@mui/icons-material/LocalGasStation';
-import hondaCity from '../HomePage/IMG/Honda_Civic_White_background_Sedan_Grey_526338_1280x765.jpg';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
-import Button from '@mui/material/Button';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-
+import { useSelector } from 'react-redux';
 import FilterPart from './FilterPart/FilterPart';
+import { getDateWMDY, getTime12H } from '../../helpers/DateHelper';
+import Loader from '../../util/Loading/loading';
+import CarServices from '../../services/CarServices';
+import Info from '../../util/Alerts/Info';
+import PlaceHolderImage from '../../util/PlaceHolderImage/index';
+import { useSearchParams, useNavigate } from 'react-router-dom';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 
 function SearchPage() {
-  const [kilometers, setKilometers] = useState('150');
-  const [sorting, setSorting] = useState('down');
+  const [sort, setSort] = useState('price');
+  const [isLoading, setIsLoading] = useState(false);
+  const [cars, setCars] = useState(null);
+  const [filterValues, setFilterValues] = useState({});
 
-  const handleKilometers = (event, newKilometers) => {
-    if (newKilometers !== null) {
-      setKilometers(newKilometers);
-    }
-  };
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const carFilterData = useSelector((state) => state.carFilter.filterData);
+
   const handleSorting = (event, sorting) => {
     if (sorting !== null) {
-      setSorting(sorting);
+      setSort(sorting);
     }
   };
-  const handleMinKilometers = (event) => {
-    setKilometers(event.target.value);
+
+  const getTimeDuration = (date1, date2) => {
+    const pickupDate = new Date(date1);
+    const dropoffDate = new Date(date2);
+
+    const timeDifferenceMs = Math.abs(dropoffDate - pickupDate);
+    const days = Math.floor(timeDifferenceMs / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((timeDifferenceMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+    return `${days} days ${hours} hours`;
   };
 
   const carBookHandler = () => {};
+
+  const handleFilterValues = (val) => {
+    console.log(val);
+    setFilterValues(val);
+  };
+
+  const handleNavigateToHome = () => {
+    navigate('/home');
+  };
+
+  const handleFindCar = async () => {
+    setIsLoading(true);
+    const searchFilters = Object.fromEntries([...searchParams]);
+    const data = { ...searchFilters, sort, ...filterValues };
+    data.segment = (data?.segment || []).join(',');
+    data.fuel = (data?.fuel || []).join(',');
+    data.transmission = (data?.transmission || []).join(',');
+    const res = await CarServices.getCars(data);
+    setCars(res);
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    handleFindCar();
+  }, [searchParams, sort, filterValues]);
+
   return (
-    <div className={styles.container}>
-      <div className={styles.filterWrapper}>
-        <div className={styles.packageWrapper}>
-          <h4 className={styles.label}>KM Package: </h4>
-          <ToggleButtonGroup
-            value={kilometers}
-            color='primary'
-            exclusive
-            onChange={handleKilometers}
-            aria-label='Platform'
-          >
-            <ToggleButton value='150' aria-label='left aligned'>
-              150km/24hr
-            </ToggleButton>
-            <ToggleButton value='300' aria-label='centered'>
-              300km/24hr
-            </ToggleButton>
-            <ToggleButton value='500' aria-label='right aligned'>
-              500km/24hr
-            </ToggleButton>
-          </ToggleButtonGroup>
-        </div>
-        <div className={styles.packageMinWrapper}>
-          <FormControl sx={{ m: 1, minWidth: 100 }} size='small'>
-            <InputLabel id='demo-select-small'>KM/24hr</InputLabel>
-            <Select
-              labelId='demo-select-small'
-              id='demo-select-small'
-              value={kilometers}
-              label='KM/24hr'
-              onChange={handleMinKilometers}
+    <>
+      <div className={styles.container}>
+        <Loader isOpen={isLoading} />
+        <div className={styles.filterWrapper}>
+          <Button onClick={handleNavigateToHome}>
+            <HomeOutlinedIcon />
+          </Button>
+          <div className={styles.sortWrapper}>
+            <h4 className={styles.label}>Sort by value: </h4>
+            <ToggleButtonGroup
+              value={sort}
+              color='primary'
+              exclusive
+              onChange={handleSorting}
+              aria-label='Platform'
             >
-              <MenuItem value={150}>150</MenuItem>
-              <MenuItem value={300}>300</MenuItem>
-              <MenuItem value={500}>500</MenuItem>
-            </Select>
-          </FormControl>
+              <ToggleButton value='price' aria-label='left aligned'>
+                <ArrowDownwardIcon />
+              </ToggleButton>
+              <ToggleButton value='-price' aria-label='centered'>
+                <ArrowUpwardIcon />
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </div>
+          <FilterPart filterHandler={handleFilterValues} />
         </div>
-        <div className={styles.sortWrapper}>
-          <h4 className={styles.label}>Sort by value: </h4>
-          <ToggleButtonGroup
-            value={sorting}
-            color='primary'
-            exclusive
-            onChange={handleSorting}
-            aria-label='Platform'
-          >
-            <ToggleButton value='down' aria-label='left aligned'>
-              <ArrowDownwardIcon />
-            </ToggleButton>
-            <ToggleButton value='up' aria-label='centered'>
-              <ArrowUpwardIcon />
-            </ToggleButton>
-          </ToggleButtonGroup>
+        <div className={styles.contentWrapper}>
+          <div className={styles.durationWrapper}>
+            <div className={styles.boodkingInfoFixed}>
+              <div className={styles.bookingInfoWrapper}>
+                <h3>Pick up information</h3>
+                <div className={styles.bookingInfo}>
+                  <LocationOnIcon style={{ color: '#43d7c8', marginRight: 5 }} />
+                  <div className={styles.LOCinfo}>
+                    <h4>
+                      {carFilterData?.pickupPoint?.pickup_location},{' '}
+                      {carFilterData?.pickupPoint?.pickup_city}
+                    </h4>
+                    <h6>
+                      {getDateWMDY(carFilterData?.pickupDate?.pickup_date)},
+                      {getTime12H(carFilterData?.pickupDate?.pickup_date)}
+                    </h6>
+                  </div>
+                </div>
+                <div className={styles.divider}></div>
+                <h3>Drop off information</h3>
+                <div className={styles.bookingInfo}>
+                  <LocationOnIcon style={{ color: 'red', marginRight: 5 }} />
+                  <div className={styles.LOCinfo}>
+                    <h4>
+                      {carFilterData?.dropoffPoint?.dropoff_location},{' '}
+                      {carFilterData?.dropoffPoint?.dropoff_city}
+                    </h4>
+                    <h6>
+                      {getDateWMDY(carFilterData?.dropoffDate?.dropoff_date)},{' '}
+                      {getTime12H(carFilterData?.dropoffDate?.dropoff_date)}
+                    </h6>
+                  </div>
+                </div>
+              </div>
+              <div className={styles.durationInfo}>
+                <h4>Total travel duration</h4>
+                <h4 style={{ color: 'white', marginTop: 5 }}>
+                  {getTimeDuration(
+                    carFilterData?.pickupDate?.pickup_date,
+                    carFilterData?.dropoffDate?.dropoff_date,
+                  )}
+                </h4>
+              </div>
+            </div>
+          </div>
+          <div className={styles.findCarWrapper}>
+            {cars?.available_cars &&
+              cars?.available_cars.length &&
+              cars?.available_cars.map((car) => {
+                const { name, brand, price, fuel, seating_capacity, transmission } = car;
+                return (
+                  <div className={styles.selectCar} key={car?.id}>
+                    <div className={styles.carInfo}>
+                      <div className={styles.carImage}>
+                        <img src={car?.images[0]?.url || PlaceHolderImage} alt='' />
+                      </div>
+                      <div className={styles.carDetails}>
+                        <h4
+                          style={{ marginBottom: '12px', fontWeight: 600 }}
+                        >{`${brand} ${name}`}</h4>
+                        <div style={{ display: 'flex' }}>
+                          <AirlineSeatReclineExtraIcon className={styles.info} />
+                          <h5>{`${seating_capacity} seater`}</h5>
+                        </div>
+                        <div style={{ display: 'flex' }}>
+                          <SettingsIcon className={styles.info} />
+                          <h5>{transmission}</h5>
+                        </div>
+                        <div style={{ display: 'flex' }}>
+                          <LocalGasStationIcon className={styles.info} />
+                          <h5>{fuel}</h5>
+                        </div>
+                      </div>
+                    </div>
+                    <div className={styles.bookCar}>
+                      <h3 style={{ marginBottom: '0.5rem' }}>
+                        <CurrencyRupeeIcon style={{ fontSize: 18 }} className={styles.info} />
+                        {price}
+                      </h3>
+                      <Button onClick={carBookHandler}>Book Now</Button>
+                    </div>
+                  </div>
+                );
+              })}
+            {cars?.available_cars &&
+              cars?.available_cars.length &&
+              cars?.available_cars.map((car) => {
+                const { name, brand, price, fuel, seating_capacity, transmission } = car;
+                return (
+                  <div className={styles.selectCarMinWrapper} key={car?.id}>
+                    <div className={styles.carInfoMin}>
+                      <h3 style={{ marginBottom: '12px' }} className={styles.h3}>
+                        {`${brand} ${name}`}
+                      </h3>
+                      <h5>{`${seating_capacity} seater, ${transmission}, ${fuel}`}</h5>
+                      <h3 style={{ marginBottom: 5, marginTop: '1rem' }}>
+                        <CurrencyRupeeIcon style={{ fontSize: 18 }} className={styles.info} />
+                        {price}
+                      </h3>
+                    </div>
+                    <div className={styles.bookCarMin}>
+                      <div className={styles.carImage}>
+                        <img src={car?.images[0]?.url || PlaceHolderImage} alt='' />
+                      </div>
+                      <div className={styles.arrow} onClick={carBookHandler}>
+                        <KeyboardArrowRightIcon style={{ color: '#43d7c8', fontSize: 30 }} />
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            {cars?.booked_cars &&
+              cars?.booked_cars.length &&
+              cars?.booked_cars.map((car) => {
+                const { name, brand, price, fuel, seating_capacity, transmission } = car;
+                return (
+                  <div className={styles.missedCar} key={car?.id}>
+                    <div className={styles.carInfo}>
+                      <div className={styles.carImage}>
+                        <img src={car?.images[0]?.url || PlaceHolderImage} alt='' />
+                      </div>
+                      <div className={styles.carDetails}>
+                        <h4
+                          style={{ marginBottom: '12px', fontWeight: 600 }}
+                        >{`${brand} ${name}`}</h4>
+                        <div style={{ display: 'flex' }}>
+                          <AirlineSeatReclineExtraIcon className={styles.info} />
+                          <h5>{`${seating_capacity} seater`}</h5>
+                        </div>
+                        <div style={{ display: 'flex' }}>
+                          <SettingsIcon className={styles.info} />
+                          <h5>{transmission}</h5>
+                        </div>
+                        <div style={{ display: 'flex' }}>
+                          <LocalGasStationIcon className={styles.info} />
+                          <h5>{fuel}</h5>
+                        </div>
+                      </div>
+                    </div>
+                    <div className={styles.bookCar}>
+                      <h3 style={{ marginBottom: '0.5rem' }}>
+                        <CurrencyRupeeIcon style={{ fontSize: 18 }} className={styles.info} />
+                        {price}
+                      </h3>
+                      <Button onClick={carBookHandler}>Book Now</Button>
+                    </div>
+                    <div className={styles.blindCar}>
+                      <h3>You Missed it.</h3>
+                    </div>
+                  </div>
+                );
+              })}
+            {cars?.booked_cars &&
+              cars?.booked_cars.length &&
+              cars?.booked_cars.map((car) => {
+                const { name, brand, price, fuel, seating_capacity, transmission } = car;
+                return (
+                  <div className={styles.missedCarMinWrapper} key={car?.id}>
+                    <div className={styles.carInfoMin}>
+                      <h3 style={{ marginBottom: '12px' }} className={styles.h3}>
+                        {`${brand} ${name}`}
+                      </h3>
+                      <h5>{`${seating_capacity} seater, ${transmission}, ${fuel}`}</h5>
+                      <h3 style={{ marginBottom: 5, marginTop: '1rem' }}>
+                        <CurrencyRupeeIcon style={{ fontSize: 18 }} className={styles.info} />
+                        {price}
+                      </h3>
+                    </div>
+                    <div className={styles.bookCarMin}>
+                      <div className={styles.carImage}>
+                        <img src={car?.images[0]?.url || PlaceHolderImage} alt='' />
+                      </div>
+                      <div className={styles.arrow} onClick={carBookHandler}>
+                        <KeyboardArrowRightIcon style={{ color: '#43d7c8', fontSize: 30 }} />
+                      </div>
+                    </div>
+                    <div className={styles.blindCar}>
+                      <h3>You Missed it.</h3>
+                    </div>
+                  </div>
+                );
+              })}
+            {cars?.available_cars.length === 0 && cars?.booked_cars.length === 0 && (
+              <Info
+                title={'Oops ther is no cars available on your filter'}
+                content={
+                  'Oops ther is no cars available on your filter. Please change current filter configration to get cars'
+                }
+              />
+            )}
+          </div>
         </div>
 
-        <FilterPart />
+        <Footer />
       </div>
-      <div className={styles.contentWrapper}>
-        <div className={styles.durationWrapper}>
-          <div className={styles.boodkingInfoFixed}>
-            <div className={styles.bookingInfoWrapper}>
-              <h3>Pick up information</h3>
-              <div className={styles.bookingInfo}>
-                <LocationOnIcon style={{ color: '#43d7c8', marginRight: 5 }} />
-                <div className={styles.LOCinfo}>
-                  <h4>Calicut International Airport, Calicut</h4>
-                  <h6>Thu, 16 Mar 23, 12:00 AM</h6>
-                </div>
-              </div>
-              <div className={styles.divider}></div>
-              <h3>Drop off information</h3>
-              <div className={styles.bookingInfo}>
-                <LocationOnIcon style={{ color: 'red', marginRight: 5 }} />
-                <div className={styles.LOCinfo}>
-                  <h4>Calicut International Airport, Calicut</h4>
-                  <h6>Thu, 16 Mar 23, 12:00 AM</h6>
-                </div>
-              </div>
-            </div>
-            <div className={styles.durationInfo}>
-              <h4>Total travel duration</h4>
-              <h4 style={{ color: 'white', marginTop: 5 }}>0 Day 4 Hours 0 Min</h4>
-            </div>
-          </div>
-        </div>
-        <div className={styles.findCarWrapper}>
-          <div className={styles.selectCar}>
-            <div className={styles.carInfo}>
-              <div className={styles.carImage}>
-                <img src={hondaCity} alt='' />
-              </div>
-              <div className={styles.carDetails}>
-                <h3 style={{ marginBottom: '12px', fontWeight: 700 }}>Maruti Alto</h3>
-                <div style={{ display: 'flex' }}>
-                  <AirlineSeatReclineExtraIcon className={styles.info} />
-                  <h5>5 seater</h5>
-                </div>
-                <div style={{ display: 'flex' }}>
-                  <SettingsIcon className={styles.info} />
-                  <h5>manual</h5>
-                </div>
-                <div style={{ display: 'flex' }}>
-                  <LocalGasStationIcon className={styles.info} />
-                  <h5>petrol</h5>
-                </div>
-              </div>
-            </div>
-            <div className={styles.bookCar}>
-              <h3 style={{ marginBottom: '0.5rem' }}>
-                <CurrencyRupeeIcon style={{ fontSize: 18 }} className={styles.info} />
-                1500
-              </h3>
-              <h6 style={{ marginBottom: '1rem' }}>
-                <CurrencyRupeeIcon style={{ fontSize: 10 }} />
-                12/km(Exclude)
-              </h6>
-              <Button onClick={carBookHandler}>Book Now</Button>
-            </div>
-          </div>
-          <div className={styles.selectCarMinWrapper} onClick={carBookHandler}>
-            <div className={styles.carInfoMin}>
-              <h3 style={{ marginBottom: '12px' }} className={styles.h3}>
-                Maruti Alto
-              </h3>
-              <h5>5 seater, manual, petrol</h5>
-              <h3 style={{ marginBottom: 5, marginTop: '1rem' }}>
-                <CurrencyRupeeIcon style={{ fontSize: 18 }} className={styles.info} />
-                1500
-              </h3>
-              <h6>
-                <CurrencyRupeeIcon style={{ fontSize: 10 }} />
-                12/km(Exclude)
-              </h6>
-            </div>
-            <div className={styles.bookCarMin}>
-              <div className={styles.carImage}>
-                <img src={hondaCity} alt='' />
-              </div>
-              <div className={styles.arrow}>
-                <KeyboardArrowRightIcon style={{ color: '#43d7c8', fontSize: 30 }} />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <Footer />
-    </div>
+    </>
   );
 }
 

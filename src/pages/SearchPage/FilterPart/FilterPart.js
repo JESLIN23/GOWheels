@@ -9,19 +9,20 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
-import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
+// import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
+// import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Checkbox from '@mui/material/Checkbox';
 import ListSubheader from '@mui/material/ListSubheader';
-import LocalGasStationIcon from '@mui/icons-material/LocalGasStation';
-import EvStationIcon from '@mui/icons-material/EvStation';
-import CarCrashIcon from '@mui/icons-material/CarCrash';
+// import LocalGasStationIcon from '@mui/icons-material/LocalGasStation';
+// import EvStationIcon from '@mui/icons-material/EvStation';
+// import CarCrashIcon from '@mui/icons-material/CarCrash';
 
 function FilterPart(props) {
   const [state, setState] = useState(false);
   const [segment, setSegment] = useState([]);
   const [fuelType, setFuelType] = useState([]);
   const [transmission, setTransmission] = useState([]);
+  const [prevFilterValues, setPrevFilterValues] = useState(null)
 
   const toggleDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -76,18 +77,21 @@ function FilterPart(props) {
   };
 
   const filterSubmitHandler = () => {
-    let filterValue = {
-      segment: [...segment],
-      fuelType: [...fuelType],
-      transmission: [...transmission],
+    let filterValues = {
+      segment: segment,
+      fuel: fuelType,
+      transmission: transmission,
     };
+
     if (
-      filterValue.segment.length !== 0 ||
-      filterValue.fuelType.length !== 0 ||
-      filterValue.transmission.length !== 0
+      filterValues.segment  !== prevFilterValues?.segment ||
+      filterValues.fuelType !== prevFilterValues?.fuel ||
+      filterValues.transmission !== prevFilterValues?.transmission
     ) {
-      props.filterHandler(filterValue);
+      setPrevFilterValues(filterValues)
+      props.filterHandler(filterValues);
     }
+    setState(false);
     return;
   };
 
@@ -112,6 +116,7 @@ function FilterPart(props) {
           return (
             <ListItem
               key={value}
+              sx={{ paddingLeft: 1 }}
               secondaryAction={
                 <Checkbox
                   sx={{
@@ -129,9 +134,9 @@ function FilterPart(props) {
               disablePadding
             >
               <ListItemButton>
-                <ListItemAvatar>
+                {/* <ListItemAvatar>
                   <DirectionsCarIcon />
-                </ListItemAvatar>
+                </ListItemAvatar> */}
                 <ListItemText id={labelId} primary={value} />
               </ListItemButton>
             </ListItem>
@@ -149,6 +154,7 @@ function FilterPart(props) {
           return (
             <ListItem
               key={value}
+              sx={{ paddingLeft: 1 }}
               secondaryAction={
                 <Checkbox
                   sx={{
@@ -166,9 +172,9 @@ function FilterPart(props) {
               disablePadding
             >
               <ListItemButton>
-                <ListItemAvatar>
+                {/* <ListItemAvatar>
                   {value === 'Electric' ? <EvStationIcon /> : <LocalGasStationIcon />}
-                </ListItemAvatar>
+                </ListItemAvatar> */}
                 <ListItemText id={labelId} primary={value} />
               </ListItemButton>
             </ListItem>
@@ -186,6 +192,7 @@ function FilterPart(props) {
           return (
             <ListItem
               key={value}
+              sx={{ paddingLeft: 1 }}
               secondaryAction={
                 <Checkbox
                   sx={{
@@ -203,9 +210,9 @@ function FilterPart(props) {
               disablePadding
             >
               <ListItemButton>
-                <ListItemAvatar>
+                {/* <ListItemAvatar>
                   <CarCrashIcon />
-                </ListItemAvatar>
+                </ListItemAvatar> */}
                 <ListItemText id={labelId} primary={value} />
               </ListItemButton>
             </ListItem>
@@ -213,13 +220,7 @@ function FilterPart(props) {
         })}
       </List>
       <div className={styles.filterSubmit}>
-        <Button
-          onClick={() => {
-            filterSubmitHandler, toggleDrawer(false);
-          }}
-        >
-          Applay
-        </Button>
+        <Button onClick={filterSubmitHandler}>Applay</Button>
       </div>
     </Box>
   );

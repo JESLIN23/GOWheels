@@ -14,7 +14,6 @@ import ProfilePage from './pages/ProfilePage/ProfilePage';
 import PrivacyPage from './pages/PrivacyPage/PrivacyPage';
 import TermsPage from './pages/TermsPage/TermsPage';
 import { ROUTES } from './const';
-
 const router = createBrowserRouter([
   {
     path: '/',

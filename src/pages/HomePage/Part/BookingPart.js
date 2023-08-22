@@ -10,6 +10,9 @@ import PickupDate from '../../../components/Popups/PickupDate';
 import DropoffPoint from '../../../components/Popups/DropoffPoint';
 import DropoffDate from '../../../components/Popups/DropoffDate';
 import Warning from '../../../components/Popups/Warning';
+import { useDispatch } from 'react-redux';
+import { carFilterActions } from '../../../redux/carFilter.js';
+import { getDateWMDY, getTime12H } from '../../../helpers/DateHelper'
 
 function BookingPart() {
   const [pickupPoint, setPickupPoint] = useState({});
@@ -24,6 +27,7 @@ function BookingPart() {
   const [notSelectWarning, setNotSelectWarning] = useState(false);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   let pickupLocations = {
     calicut: [
@@ -32,7 +36,7 @@ function BookingPart() {
       'Calicut International Airport',
       'GoWheel Calicut',
     ],
-    kochin: [
+    kochi: [
       'Home Delivery',
       'GoWheel Edapally',
       'North Railway Station',
@@ -44,27 +48,6 @@ function BookingPart() {
       'Trivandram International Airport',
       'Trivandram Central Railway Station',
     ],
-  };
-
-  const getDate = (givenDate) => {
-    const date = new Date(givenDate);
-    const formattedDateString = date.toLocaleString('en-US', {
-      weekday: 'short',
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-    });
-    return formattedDateString;
-  };
-
-  const getTime = (givenDate) => {
-    const date = new Date(givenDate);
-    const formattedDateString = date.getUTCHours();
-    if (formattedDateString > 12) {
-      return `${formattedDateString - 12}:00 AM`;
-    } else {
-      return `${formattedDateString}:00 PM`;
-    }
   };
 
   const searchVehicleHandler = () => {
@@ -89,16 +72,20 @@ function BookingPart() {
       return;
     }
 
-    console.log({
-      pickup_city: pickupPoint?.pickup_city,
-      pickup_date: pickupDate?.pickup_date,
-      dropoff_date: dropoffDate?.dropoff_date,
-    });
-    let searchParams = {
+    const searchParams = {
       pickup_city: pickupPoint?.pickup_city,
       pickup_date: pickupDate?.pickup_date,
       dropoff_date: dropoffDate?.dropoff_date,
     };
+
+    dispatch(
+      carFilterActions.setFilterToFindCar({
+        pickupPoint,
+        pickupDate,
+        dropoffPoint,
+        dropoffDate,
+      }),
+    );
 
     navigate({
       pathname: '/search',
@@ -139,7 +126,7 @@ function BookingPart() {
                 <input type='hidden' value={pickupPoint} />
                 <span>
                   {pickupDate?.pickup_date
-                    ? ` ${getDate(pickupDate?.pickup_date)} - ${getTime(
+                    ? ` ${getDateWMDY(pickupDate?.pickup_date)} - ${getTime12H(
                         pickupDate?.pickup_date,
                       )} - hr`
                     : 'Select Pickup Date'}
@@ -173,7 +160,7 @@ function BookingPart() {
                 <input type='hidden' value={pickupPoint} />
                 <span>
                   {dropoffDate?.dropoff_date
-                    ? ` ${getDate(dropoffDate?.dropoff_date)} - ${getTime(
+                    ? ` ${getDateWMDY(dropoffDate?.dropoff_date)} - ${getTime12H(
                         dropoffDate?.dropoff_date,
                       )} - hr`
                     : 'Select Dropoff Date'}
@@ -257,42 +244,38 @@ function BookingPart() {
         ))}
 
       {selectDropoffDate &&
-        (!dropoffDate?.dropoff_date ? (
-          pickupPoint?.pickup_location ? (
-            pickupDate?.pickup_date ? (
-              dropoffPoint?.dropoff_location ? (
-                <DropoffDate
-                  data={{
-                    date: pickupDate?.pickup_date,
-                    time: getTime(pickupDate?.pickup_date),
-                  }}
-                  DropoffDateInfo={(date) => {
-                    setDropoffDate(date);
-                    setSelectDropoffDate(false);
-                  }}
-                  onClose={(info) => {
-                    setSelectDropoffDate(false);
-                    setWarningData(info);
-                    setNotSelectWarning(true);
-                  }}
-                />
-              ) : (
-                (setSelectDropoffDate(false),
-                setWarningData('Please Select Dropoff Point'),
-                setNotSelectWarning(true))
-              )
+        (pickupPoint?.pickup_location ? (
+          pickupDate?.pickup_date ? (
+            dropoffPoint?.dropoff_location ? (
+              <DropoffDate
+                data={{
+                  date: pickupDate?.pickup_date,
+                  time: getTime12H(pickupDate?.pickup_date),
+                }}
+                DropoffDateInfo={(date) => {
+                  setDropoffDate(date);
+                  setSelectDropoffDate(false);
+                }}
+                onClose={(info) => {
+                  setSelectDropoffDate(false);
+                  setWarningData(info);
+                  setNotSelectWarning(true);
+                }}
+              />
             ) : (
               (setSelectDropoffDate(false),
-              setWarningData('Please Select Pickup Date'),
+              setWarningData('Please Select Dropoff Point'),
               setNotSelectWarning(true))
             )
           ) : (
             (setSelectDropoffDate(false),
-            setWarningData('Please Select Pickup Point'),
+            setWarningData('Please Select Pickup Date'),
             setNotSelectWarning(true))
           )
         ) : (
-          setSelectDropoffDate(false)
+          (setSelectDropoffDate(false),
+          setWarningData('Please Select Pickup Point'),
+          setNotSelectWarning(true))
         ))}
 
       {notSelectWarning && (
@@ -307,5 +290,6 @@ function BookingPart() {
     </>
   );
 }
+
 
 export default BookingPart;
