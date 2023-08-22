@@ -1,16 +1,27 @@
-import { Navigate, useLocation } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import { ROUTES } from '../const'
 import React, { useContext } from 'react'
 import UserContext from '../context/UserContext'
 
-export default function protectRoute({ children }) {
+// export default function protectRoute({ children }) {
+//     const { isLoggedIn } = useContext(UserContext);
+//     const location = useLocation()
+//     const _isLoggedIn = isLoggedIn()
+
+//     if(!_isLoggedIn) {
+//         return <Navigate to={ROUTES.LOGIN} state={{ from: location }} replace />
+//     }
+
+//     return <>{ children }</>
+// }
+
+export default function ProtectedRoute({ element: Element, ...props }) {
     const { isLoggedIn } = useContext(UserContext);
-    const location = useLocation()
-    const _isLoggedIn = isLoggedIn()
-
-    if(!_isLoggedIn) {
-        return <Navigate to={ROUTES.LOGIN} state={{ from: location }} replace />
-    }
-
-    return <>{ children }</>
-}
+  
+    const isAuthenticated = isLoggedIn();
+    return isAuthenticated ? (
+      <Element {...props} />
+    ) : (
+      <Navigate to={ROUTES.LOGIN} />
+    );
+  }

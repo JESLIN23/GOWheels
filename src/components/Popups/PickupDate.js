@@ -8,7 +8,7 @@ import dayjs from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 // import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { ClockPicker } from '@mui/x-date-pickers';
-import { getBookingDateInIsoFomat } from '../../helpers/DateConverters';
+import { getBookingDateInIsoFomat } from '../../helpers/DateHelper';
 
 function PickupDate({ PickupDateInfo, onClose }) {
   const [pickupDate, setPickupDate] = useState('');

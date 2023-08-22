@@ -8,7 +8,7 @@ import dayjs from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 // import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { ClockPicker } from '@mui/x-date-pickers';
-import { getBookingDateInIsoFomat } from '../../helpers/DateConverters';
+import { getBookingDateInIsoFomat } from '../../helpers/DateHelper';
 
 function DropoffDate({ data, DropoffDateInfo, onClose }) {
   const [dropoffDate, setDropoffDate] = useState('');
@@ -17,7 +17,8 @@ function DropoffDate({ data, DropoffDateInfo, onClose }) {
   const twoMonth = dayjs().add(3, 'month');
   const tomarrow = dayjs(data.date).add(1, 'day');
   // let hr = dayjs().$H + 3;
-  let hr = data?.time;
+  const pickupDate = new Date(data?.date);
+  const hr = pickupDate.getUTCHours();
   let skipHR;
 
   if (new Date(data.date).getDate() + 1 === dropoffDate.$D) {
