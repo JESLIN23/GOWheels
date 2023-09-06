@@ -16,6 +16,7 @@ export const ROUTES = {
   CONTACTUS: '/contactus',
   ABOUTUS: '/about',
   OFFERS: '/offers',
+  CHECKOUT: '/checkout',
 };
 
 export const STORAGE_KEYS = {
@@ -24,6 +25,8 @@ export const STORAGE_KEYS = {
   USER_ID: 'gowheels-auth-user-id',
   FIRST_NAME: 'gowheels-first-name',
   SECOND_NAME: 'gowheels-second-name',
+  CAR_FILTER_DATA: 'gowheels-car-filter-data',
+  SELECTED_CAR: 'gowheels-selected-car',
 };
 
 export const HEADERS = {

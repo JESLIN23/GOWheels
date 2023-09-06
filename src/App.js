@@ -13,6 +13,8 @@ import SearchPage from './pages/SearchPage/SearchPage';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
 import PrivacyPage from './pages/PrivacyPage/PrivacyPage';
 import TermsPage from './pages/TermsPage/TermsPage';
+// import ProtectedRoute from './components/ProtectRoute';
+import CheckoutPage from './pages/Checkout/Checkout';
 import { ROUTES } from './const';
 const router = createBrowserRouter([
   {
@@ -31,6 +33,7 @@ const router = createBrowserRouter([
       { path: `${ROUTES.PROFILE}`, element: <ProfilePage /> },
       { path: `${ROUTES.PRIVACY_POLICY}`, element: <PrivacyPage /> },
       { path: `${ROUTES.TERMS_CONDETIONS}`, element: <TermsPage /> },
+      { path: `${ROUTES.CHECKOUT}`, element: <CheckoutPage /> },
     ],
   },
 ]);

@@ -1,7 +1,7 @@
 import ApiHelper from '../helpers/ApiHelper';
 
 const updateUser = async (data) => {
-  const url = `/user/updateMe`;
+  const url = `/users/updateMe`;
   const response = await ApiHelper.request({
     url,
     method: 'PATCH',
@@ -16,7 +16,7 @@ const updateUser = async (data) => {
 const addUserImage = async (userId, file) => {
   const formData = new FormData();
   formData.append('avatar', file);
-  const url = `/user/${userId}/avatar`;
+  const url = `/users/${userId}/avatar`;
   await ApiHelper.request({
     url,
     method: 'PATCH',
@@ -28,7 +28,7 @@ const addUserImage = async (userId, file) => {
 const addDrivingLicenceFront = async (userId, file) => {
   const formData = new FormData();
   formData.append('licence', file);
-  const url = `/user/${userId}/licence-front`;
+  const url = `/users/${userId}/licence-front`;
   await ApiHelper.request({
     url,
     method: 'PATCH',
@@ -40,7 +40,7 @@ const addDrivingLicenceFront = async (userId, file) => {
 const addDrivingLicenceBack = async (userId, file) => {
   const formData = new FormData();
   formData.append('licence', file);
-  const url = `/user/${userId}/licence-back`;
+  const url = `/users/${userId}/licence-back`;
   await ApiHelper.request({
     url,
     method: 'PATCH',
