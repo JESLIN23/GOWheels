@@ -40,3 +40,14 @@ export const getTime12H = (givenDate) => {
   }
 };
 
+export const getTimeDuration = (date1, date2) => {
+  const pickupDate = new Date(date1);
+  const dropoffDate = new Date(date2);
+
+  const timeDifferenceMs = Math.abs(dropoffDate - pickupDate);
+  const days = Math.floor(timeDifferenceMs / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((timeDifferenceMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+  return `${days} days ${hours} hours`;
+};
+

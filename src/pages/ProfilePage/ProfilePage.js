@@ -17,92 +17,60 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import userContextHook from '../../hooks/userContextHook';
 import UserServices from '../../services/UserServices';
 
-const validateEmail = (value) =>
-  value.trim().length > 6 &&
-  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/i.test(value);
-const validateName = (value) => value.trim().length !== 0;
-const validatePhone = (value) => value.trim().length === 10 && /^[4-9]+[0-9]/i.test(value.trim());
+// const validateEmail = (value) =>
+//   value.trim().length > 6 &&
+//   /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/i.test(value);
+// const validateName = (value) => value.trim().length !== 0;
+// const validatePhone = (value) => value.trim().length === 10 && /^[4-9]+[0-9]/i.test(value.trim());
 
 function ProfilePage() {
-  const [drivingLicence, setDrivingLicence] = useState({ front: null, back: null });
-  const [avatar, setAvatar] = useState(null);
   const [data, setData] = useState({});
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [logout, setLogout] = useState(false);
   const [isShowSaveButton, setIsShowSaveButton] = useState(false);
-  const [prevData, setPrevData] = useState({});
+  const [updatedData, setUpdatedData] = useState({});
 
   const navigate = useNavigate();
-  const { userProfile, initiateLogout, isLoggedIn, getUserProfile } = userContextHook();
+  const { userProfile, initiateLogout, isLoggedIn, setUserProfile } = userContextHook();
   const { postSuccessAlert } = useContext(AlertMessageContext);
 
   const uploadFrontImg = (e) => {
-    setDrivingLicence({ ...drivingLicence, front: e.target.files[0] });
+    setUpdatedData({ ...updatedData, licence_front: e.target.files[0] });
   };
   const uploadBackImg = (e) => {
-    setDrivingLicence({ ...drivingLicence, back: e.target.files[0] });
+    setUpdatedData({ ...updatedData, licence_back: e.target.files[0] });
   };
   const uploadUserImg = (e) => {
-    const selectedFile = e.target.files[0];
-    if (selectedFile) {
-      setAvatar(selectedFile);
-    }
+    setUpdatedData({ ...updatedData, avatar: e.target.files[0] });
   };
 
-  const validateHandler = () => {
-    if (!data?.name) {
-      setErrorMessage('name cannot be empty');
-      return;
-    }
-    if (!validateName(data?.name)) {
-      setErrorMessage('name is invalid');
-      return;
-    }
-    if (!data?.email) {
-      setErrorMessage('email cannot be empty');
-      return;
-    }
-    if (!validateEmail(data?.email)) {
-      setErrorMessage('email is invalid');
-      return;
-    }
-    if (!data?.phone) {
-      setErrorMessage('phone cannot be empty');
-      return;
-    }
-    if (!validatePhone(data?.phone)) {
-      setErrorMessage('phone is invalid');
-      return;
-    }
-  };
+  // const validateHandler = () => {
+  //   if (!validateName(updatedFields?.name)) {
+  //     setErrorMessage('name is invalid');
+  //     return;
+  //   }
+  //   if (!validateEmail(updatedFields?.email)) {
+  //     setErrorMessage('email is invalid');
+  //     return;
+  //   }
+  //   if (!validatePhone(updatedFields?.phone)) {
+  //     setErrorMessage('phone is invalid');
+  //     return;
+  //   }
+  // };
 
   const userDataUpdateHandler = async () => {
-    const validate = validateHandler();
-
-    if (!validate) {
-      setTimeout(() => {
-        setErrorMessage('');
-      }, 3000);
-    }
     setLoading(true);
     try {
-      if (avatar) {
-        await UserServices.addUserImage(data?.id, avatar);
-      }
-      if (drivingLicence?.front) {
-        await UserServices.addDrivingLicenceFront(data?.id, drivingLicence.front);
-      }
-      if (drivingLicence?.back) {
-        await UserServices.addDrivingLicenceBack(data?.id, drivingLicence.back);
-      }
-      if (isAnyChangesOnUserInfo()) {
-        const response = await UserServices.updateUser(data);
-        setData(response);
-      } else {
-        await getUserProfile();
-      }
-
+      const formData = new FormData();
+      if (updatedData?.avatar) formData.append('avatar', updatedData?.avatar);
+      if (updatedData?.licence_front) formData.append('licence_front', updatedData?.licence_front);
+      if (updatedData?.licence_back) formData.append('licence_back', updatedData?.licence_back);
+      const response = await UserServices.updateUser(formData);
+      setData(response);
+      setUserProfile(response);
+      setUpdatedData({});
       postSuccessAlert('Updated successfully');
     } catch (error) {
       setErrorMessage(error.message);
@@ -122,73 +90,47 @@ function ProfilePage() {
     } finally {
       postSuccessAlert('Logout successfully');
       setData({});
-      setPrevData({});
+      setUpdatedData({});
       setLogout(false);
       navigate(ROUTES.HOME);
     }
   };
 
   const getAvatarSrc = () => {
-    if (avatar) {
-      return URL.createObjectURL(avatar);
+    if (updatedData?.avatar) {
+      return URL.createObjectURL(updatedData.avatar);
     } else if (data?.avatar) {
       return data.avatar;
     }
   };
 
   const getLicenceFrontSrc = () => {
-    if (drivingLicence?.front) {
-      return URL.createObjectURL(drivingLicence?.front);
-    } else if (data?.driving_licence?.front) {
-      return data?.driving_licence?.front;
+    if (updatedData?.licence_front) {
+      return URL.createObjectURL(updatedData?.licence_front);
+    } else if (data?.driving_licence?.front_img) {
+      return data?.driving_licence?.front_img;
     }
   };
 
   const getLicenceBackSrc = () => {
-    if (drivingLicence?.back) {
-      return URL.createObjectURL(drivingLicence?.back);
-    } else if (data?.driving_licence?.back) {
-      return data?.driving_licence?.back;
+    if (updatedData?.licence_back) {
+      return URL.createObjectURL(updatedData.licence_back);
+    } else if (data?.driving_licence?.back_img) {
+      return data?.driving_licence?.back_img;
     }
-  };
-
-  const isAnyChangesOnUserInfo = () => {
-    return (
-      data?.firstName !== prevData?.firstName ||
-      data?.secondName !== prevData?.secondName ||
-      data?.email !== prevData?.email ||
-      data?.phone !== prevData?.phone
-    );
   };
 
   const isAnyChangeOnUserData = useCallback(() => {
     return (
-      data?.firstName !== prevData?.firstName ||
-      data?.secondName !== prevData?.secondName ||
-      data?.email !== prevData?.email ||
-      data?.phone !== prevData?.phone ||
-      avatar !== null ||
-      drivingLicence?.front !== null ||
-      drivingLicence?.back !== null
+      updatedData?.licence_front !== data?.driving_licence?.front_img ||
+      updatedData?.licence_back !== data?.driving_licence?.back_img ||
+      updatedData?.avatar !== data?.avatar
     );
-  }, [
-    data?.firstName,
-    data?.secondName,
-    data?.email,
-    data?.phone,
-    prevData?.firstName,
-    prevData?.secondName,
-    prevData?.email,
-    prevData?.phone,
-    avatar,
-    drivingLicence?.front,
-    drivingLicence?.back,
-  ]);
+  }, [updatedData?.licence_front, updatedData?.licence_back, updatedData?.avatar]);
 
   useEffect(() => {
     if (!userProfile) return;
     setData(userProfile);
-    setPrevData(userProfile);
   }, [userProfile?.id]);
 
   useEffect(() => {
@@ -217,10 +159,11 @@ function ProfilePage() {
               id='outlined-basic'
               variant='outlined'
               fullWidth
+              disabled
               label='First name'
               className={styles.input}
               value={data?.firstName || ''}
-              onChange={(e) => setData({ ...data, firstName: e.target.value })}
+              // onChange={(e) => setData({ ...data, firstName: e.target.value })}
               sx={{ mb: 2 }}
             />
             <TextField
@@ -228,29 +171,32 @@ function ProfilePage() {
               variant='outlined'
               fullWidth
               label='Second name'
+              disabled
               className={styles.input}
               value={data?.secondName || ''}
-              onChange={(e) => setData({ ...data, secondName: e.target.value })}
+              // onChange={(e) => setData({ ...data, secondName: e.target.value })}
               sx={{ mb: 2 }}
             />
             <TextField
               id='outlined-basic'
               variant='outlined'
               fullWidth
+              disabled
               label='Email'
               className={styles.input}
               value={data?.email || ''}
-              onChange={(e) => setData({ ...data, email: e.target.value })}
+              // onChange={(e) => setData({ ...data, email: e.target.value })}
               sx={{ mb: 2 }}
             />
             <TextField
               id='outlined-basic'
               variant='outlined'
               fullWidth
+              disabled
               label='Phone'
               className={styles.input}
               value={data?.phone || ''}
-              onChange={(e) => setData({ ...data, phone: e.target.value })}
+              // onChange={(e) => setData({ ...data, phone: e.target.value })}
               sx={{ mb: 2 }}
             />
           </Grid>
@@ -259,7 +205,7 @@ function ProfilePage() {
         <h5 style={{ marginBottom: 16 }}>Driving License</h5>
         <Grid container className={styles.licenseWrapper}>
           <Grid className={styles.license} item xs={12} md={6}>
-            {(data?.driving_licence?.front || drivingLicence?.front) && (
+            {(data?.driving_licence?.front_img || updatedData?.licence_front) && (
               <img
                 src={getLicenceFrontSrc()}
                 alt='license image'
@@ -268,14 +214,14 @@ function ProfilePage() {
               />
             )}
             <input type='file' className={styles.uploader} onChange={uploadFrontImg} />
-            {!data?.driving_licence?.front && !drivingLicence?.front && (
+            {!data?.driving_licence?.front_img && !updatedData?.licence_front && (
               <span className={styles.span}>
                 Click to upload the front side of your driving license
               </span>
             )}
           </Grid>
           <Grid className={styles.license} item xs={12} md={6}>
-            {(data?.driving_licence?.back || drivingLicence?.back) && (
+            {(data?.driving_licence?.back_img || updatedData?.licence_back) && (
               <img
                 src={getLicenceBackSrc()}
                 alt='license image'
@@ -284,7 +230,7 @@ function ProfilePage() {
               />
             )}
             <input type='file' className={styles.uploader} onChange={uploadBackImg} />
-            {!data?.driving_licence?.back && !drivingLicence?.back && (
+            {!data?.driving_licence?.back_img && !updatedData?.licence_back && (
               <span className={styles.span}>
                 Click to upload the back side of your driving license
               </span>

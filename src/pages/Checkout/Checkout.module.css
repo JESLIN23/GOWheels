@@ -1,0 +1,182 @@
+.container {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bgColor1);
+  align-items: center;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.head {
+  width: 100%;
+  height: 4rem;
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 2rem;
+  box-shadow: 0 8px 9px -8px #888888;
+  background-color: var(--bgColor1);
+  z-index: 4;
+}
+.head button {
+  color: black;
+}
+.paymentWrapper {
+  margin: 1rem auto;
+  margin-top: 6rem;
+  margin-bottom: 5rem;
+  max-width: 1200px;
+  background-color: white;
+  border-radius: 5px;
+  padding: 1rem;
+  border: 1px solid #dddddd;
+}
+.selectedCar {
+  height: 9rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.carImage {
+  height: 8.5rem;
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+}
+.carImage img {
+  height: 8.5rem;
+  width: 13rem;
+}
+.info {
+  font-size: 20px !important;
+  color: var(--secondaryColor);
+  margin-right: 1rem;
+}
+.carDetails {
+  height: 100%;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.carDetails div {
+  height: fit-content;
+  width: 100%;
+  margin-bottom: 5px;
+}
+.durationWrapper {
+  margin: 1rem 0 !important;
+}
+.filterDataWrapper {
+  display: flex;
+  flex-direction: column !important;
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+  background-color: #f7f7f7;
+}
+.filterHeading {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 14px;
+}
+.filterHeading h3 {
+  font-size: 18px;
+  font-weight: 600;
+}
+.filterHeading a {
+  color: var(--secondaryColor);
+}
+.bookingInfo {
+  height: fit-content;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 8px 18px;
+}
+.LOCinfo {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.5;
+}
+.LOCinfo h4 {
+  font-size: 15px;
+  font-weight: 500;
+}
+.LOCinfo h5 {
+  font-size: 13px;
+  font-weight: 500;
+}
+.priceDetailsContainer {
+  display: flex;
+  flex-direction: column !important;
+  margin-top: 1rem !important;
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+  padding: 1rem;
+}
+.priceDetailsContainer h3 {
+  font-size: 18px;
+  font-weight: 600;
+}
+.priceItems {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.service {
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  width: fit-content;
+  justify-content: space-between;
+  color: white;
+  align-items: center;
+  box-shadow: 0 1px 3px 0 black;
+  background: linear-gradient(79deg, rgba(24, 119, 109, 1) 25%, rgba(43, 150, 138, 1) 70%);
+}
+.serviceDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.priceDetailsContainer ul {
+  margin-top: 1rem;
+  line-height: 2;
+}
+.priceDetailsContainer li {
+  color: #888888;
+  text-decoration: none;
+  font-size: 14px;
+}
+.paymentContainer {
+  position: fixed;
+  bottom: 0;
+  margin: 0 auto;
+  max-width: 1200px;
+  background-color: white;
+  border-radius: 5px;
+  padding: 1.5rem 1rem;
+  border: 1px solid #dddddd;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.totalAmount {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+}
+.paymentContainer button {
+  background-color: #00cdb8;
+  padding: 0.5rem;
+  font-size: 12px;
+  width: fit-content;
+  transition: all 0.5s ease-in-out;
+}
+.paymentContainer button:hover {
+  background-color: #18776d;
+}

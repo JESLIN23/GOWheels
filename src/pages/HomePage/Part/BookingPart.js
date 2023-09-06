@@ -12,7 +12,8 @@ import DropoffDate from '../../../components/Popups/DropoffDate';
 import Warning from '../../../components/Popups/Warning';
 import { useDispatch } from 'react-redux';
 import { carFilterActions } from '../../../redux/carFilter.js';
-import { getDateWMDY, getTime12H } from '../../../helpers/DateHelper'
+import { getDateWMDY, getTime12H } from '../../../helpers/DateHelper';
+import { STORAGE_KEYS, ROUTES } from '../../../const';
 
 function BookingPart() {
   const [pickupPoint, setPickupPoint] = useState({});
@@ -86,9 +87,16 @@ function BookingPart() {
         dropoffDate,
       }),
     );
+    const filterData = JSON.stringify({
+      pickupPoint,
+      pickupDate,
+      dropoffPoint,
+      dropoffDate,
+    })
+    localStorage.setItem(STORAGE_KEYS.CAR_FILTER_DATA, filterData);
 
     navigate({
-      pathname: '/search',
+      pathname: ROUTES.SEARCH,
       search: `?${createSearchParams(searchParams)}`,
     });
   };
@@ -290,6 +298,5 @@ function BookingPart() {
     </>
   );
 }
-
 
 export default BookingPart;

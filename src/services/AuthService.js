@@ -8,7 +8,6 @@ async function login(credentials) {
   if (localStorage.getItem(STORAGE_KEYS.REFRESH_TOKEN)) {
     data.refreshToken = localStorage.getItem(STORAGE_KEYS.REFRESH_TOKEN);
   }
-  console.log(data);
   const resp = await ApiHelper.request({
     url,
     method: 'POST',
