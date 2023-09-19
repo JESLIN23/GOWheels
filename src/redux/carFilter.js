@@ -7,7 +7,6 @@ const carFilterSlice = createSlice({
   initialState,
   reducers: {
     setFilterToFindCar(state, { payload }) {
-      console.log(payload);
       state.filterData = payload;
     },
     clearFilterToFindCar(state) {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styles from './Checkout.module.css';
 import { Button, Grid, Divider } from '@mui/material';
 import Loader from '../../util/Loading/loading';
@@ -19,11 +19,15 @@ import CarRentalIcon from '@mui/icons-material/CarRental';
 import LocalTaxiIcon from '@mui/icons-material/LocalTaxi';
 import BookingServices from '../../services/BookingServices';
 import CalculatePrice from '../../helpers/CalculatePrice';
+import AlertMessageContext from '../../context/AlertMessageContext';
 
 function Checkout() {
   const [isLoading, setIsLoading] = useState(false);
   const [bookingCar, setBookingCar] = useState(null);
   const [carFilterData, setCarFilterData] = useState(null);
+
+  const { postErrorAlert } = useContext(AlertMessageContext);
+
 
   let selectedCar = useSelector((state) => state.car.selectedCar);
   let filterData = useSelector((state) => state.carFilter.filterData);
@@ -40,9 +44,8 @@ function Checkout() {
       if (res.status === 'success') {
         window.location.href = res?.session?.url;
       }
-      console.log(res);
     } catch (error) {
-      console.error(error);
+      postErrorAlert(error?.message);
     }
     setIsLoading(false);
   };
