@@ -76,7 +76,9 @@ function LoginPage() {
   useEffect(() => {
     // const newParams = Object.fromEntries([...searchParams]);
     // setUser(newParams.data);
-    setUser(searchParams.get('data'));
+    let registration = searchParams.get('data')
+    if (registration) return setUser(registration)
+    setUser('login');
   }, [searchParams]);
 
   const {

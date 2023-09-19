@@ -39,9 +39,11 @@ export const UserProvider = ({ children }) => {
     const accessToken = localStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN);
     if (refreshToken && accessToken) {
       setLoggedIn(true);
+      return true;
     } else {
       setLoggedIn(false);
       setUserProfile({});
+      return false;
     }
   };
 

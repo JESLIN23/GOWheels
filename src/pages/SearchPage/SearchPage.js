@@ -22,6 +22,8 @@ import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import { ROUTES, STORAGE_KEYS } from '../../const';
 import { carActions } from '../../redux/car';
 import { getTimeDuration } from '../../helpers/DateHelper';
+import CalculatePrice from '../../helpers/CalculatePrice';
+import AlertContextHook from '../../hooks/AlertContextHook';
 
 function SearchPage() {
   const [sort, setSort] = useState('price');
@@ -29,6 +31,8 @@ function SearchPage() {
   const [cars, setCars] = useState(null);
   const [filterValues, setFilterValues] = useState({});
   const [carFilterData, setCarFilterData] = useState(null);
+
+  const { postErrorAlert } = AlertContextHook();
 
   let filterData = useSelector((state) => state.carFilter.filterData);
   const navigate = useNavigate();
@@ -58,13 +62,26 @@ function SearchPage() {
 
   const handleFindCar = async () => {
     setIsLoading(true);
-    const searchFilters = Object.fromEntries([...searchParams]);
-    const data = { ...searchFilters, sort, ...filterValues };
-    data.segment = (data?.segment || []).join(',');
-    data.fuel = (data?.fuel || []).join(',');
-    data.transmission = (data?.transmission || []).join(',');
-    const res = await CarServices.getCars(data);
-    setCars(res);
+    try {
+      let searchFilters;
+      if (searchParams) {
+        searchFilters = Object.fromEntries([...searchParams]);
+      } else {
+        searchFilters = {
+          pickup_city: filterData?.pickupPoint?.pickup_city,
+          pickup_date: filterData?.pickupDate?.pickup_date,
+          dropoff_date: filterData?.dropoffDate?.dropoff_date,
+        };
+      }
+      const data = { ...searchFilters, sort, ...filterValues };
+      data.segment = (data?.segment || []).join(',');
+      data.fuel = (data?.fuel || []).join(',');
+      data.transmission = (data?.transmission || []).join(',');
+      const res = await CarServices.getCars(data);
+      setCars(res);
+    } catch (error) {
+      postErrorAlert(error.message);
+    }
     setIsLoading(false);
   };
 
@@ -185,7 +202,11 @@ function SearchPage() {
                   <div className={styles.bookCar}>
                     <h3 style={{ marginBottom: '0.5rem' }}>
                       <CurrencyRupeeIcon style={{ fontSize: 18 }} className={styles.info} />
-                      {price}
+                      {CalculatePrice.calculatedBookingPrice(
+                        price,
+                        carFilterData?.pickupDate?.pickup_date,
+                        carFilterData?.dropoffDate?.dropoff_date,
+                      )}
                     </h3>
                     <Button onClick={() => carBookHandler(car)}>Book Now</Button>
                   </div>
@@ -205,7 +226,11 @@ function SearchPage() {
                     <h5>{`${seating_capacity} seater, ${transmission}, ${fuel}`}</h5>
                     <h3 style={{ marginBottom: 5, marginTop: '1rem' }}>
                       <CurrencyRupeeIcon style={{ fontSize: 18 }} className={styles.info} />
-                      {price}
+                      {CalculatePrice.calculatedBookingPrice(
+                        price,
+                        carFilterData?.pickupDate?.pickup_date,
+                        carFilterData?.dropoffDate?.dropoff_date,
+                      )}
                     </h3>
                   </div>
                   <div className={styles.bookCarMin}>

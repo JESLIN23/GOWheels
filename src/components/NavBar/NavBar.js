@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { NavLink, useNavigate, createSearchParams } from 'react-router-dom';
-
+import logo from './gowheels-primary.png';
 import styles from './NavBar.module.css';
 // import logo from './c785ba2145e9497eb75dff1d147873ee.png'
 import {
@@ -18,11 +18,13 @@ import ArticleIcon from '@mui/icons-material/Article';
 import userContextHook from '../../hooks/userContextHook';
 import { ROUTES } from '../../const';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import UserContext from '../../context/UserContext';
 
 function NavBar() {
   const [showMenu, setShowMenu] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-
+  
+  const { userProfile } = useContext(UserContext);
   const navigate = useNavigate();
   const loginParams = { data: 'login' };
   const { loggedIn } = userContextHook();
@@ -80,7 +82,7 @@ function NavBar() {
           <span className={menuClasses} onClick={() => setShowMenu(!showMenu)}></span>
         </div>
         <div className={styles.logo}>
-          <span>GO Wheels</span>
+          <img src={logo} alt='gowheels' />
         </div>
       </div>
       <div className={linksWrapperClasses} onClick={() => setShowMenu(!showMenu)}>
@@ -125,6 +127,16 @@ function NavBar() {
                   onClick={() => setShowMenu(false)}
                 >
                   Offers
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to={ROUTES.BOOKINGS}
+                  className={({ isActive }) => (isActive ? styles.active : undefined)}
+                  end
+                  onClick={() => setShowMenu(false)}
+                >
+                  Bookings
                 </NavLink>
               </li>
               <li>
@@ -179,7 +191,12 @@ function NavBar() {
               )}
               {loggedIn && (
                 <li>
-                  <Avatar className={styles.avatar} alt='Remy Sharp' src='' onClick={profilePageHandler} />
+                  <Avatar
+                    className={styles.avatar}
+                    alt='Remy Sharp'
+                    src={userProfile?.avatar}
+                    onClick={profilePageHandler}
+                  />
                 </li>
               )}
             </ul>

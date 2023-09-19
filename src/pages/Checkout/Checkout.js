@@ -17,6 +17,8 @@ import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices
 import DriveEtaIcon from '@mui/icons-material/DriveEta';
 import CarRentalIcon from '@mui/icons-material/CarRental';
 import LocalTaxiIcon from '@mui/icons-material/LocalTaxi';
+import BookingServices from '../../services/BookingServices';
+import CalculatePrice from '../../helpers/CalculatePrice';
 
 function Checkout() {
   const [isLoading, setIsLoading] = useState(false);
@@ -27,27 +29,23 @@ function Checkout() {
   let filterData = useSelector((state) => state.carFilter.filterData);
   const navigate = useNavigate();
 
-  if (isLoading === true) {
-    setIsLoading(true);
-  }
-
   const handleBackToSearchPage = () => {
     navigate(-1);
   };
 
-  const calculatedBookingPrice = (price) => {
-    const pickupDate = new Date(carFilterData?.pickupDate?.pickup_date);
-    const dropoffDate = new Date(carFilterData?.dropoffDate?.dropoff_date);
-
-    const timeDifferenceMs = Math.abs(dropoffDate - pickupDate);
-    const days = Math.floor(timeDifferenceMs / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((timeDifferenceMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const duration = `${days}.${hours}`;
-
-    return Math.floor(duration * price);
+  const handlePayment = async () => {
+    setIsLoading(true);
+    try {
+      const res = await BookingServices.getCheckoutSession(bookingCar, carFilterData);
+      if (res.status === 'success') {
+        window.location.href = res?.session?.url;
+      }
+      console.log(res);
+    } catch (error) {
+      console.error(error);
+    }
+    setIsLoading(false);
   };
-
-  console.log({ bookingCar, carFilterData });
 
   useEffect(() => {
     if (!selectedCar || !filterData) {
@@ -142,7 +140,13 @@ function Checkout() {
             </Grid>
             <Grid item xs={6} className={styles.priceItems}>
               <CurrencyRupeeIcon style={{ fontSize: '13px', marginRight: '8px' }} />
-              <h5> {calculatedBookingPrice(bookingCar?.price)}</h5>
+              <h5>
+                {CalculatePrice.calculatedBookingPrice(
+                  bookingCar?.price,
+                  carFilterData?.pickupDate?.pickup_date,
+                  carFilterData?.dropoffDate?.dropoff_date,
+                )}
+              </h5>
             </Grid>
           </Grid>
           <Grid container marginTop={1.5} paddingLeft={1}>
@@ -170,7 +174,13 @@ function Checkout() {
             </Grid>
             <Grid item xs={6} className={styles.priceItems}>
               <CurrencyRupeeIcon style={{ fontSize: '13px', marginRight: '8px' }} />
-              <h4>{calculatedBookingPrice(bookingCar?.price)}</h4>
+              <h4>
+                {CalculatePrice.calculatedBookingPrice(
+                  bookingCar?.price,
+                  carFilterData?.pickupDate?.pickup_date,
+                  carFilterData?.dropoffDate?.dropoff_date,
+                )}
+              </h4>
             </Grid>
           </Grid>
         </Grid>
@@ -223,11 +233,19 @@ function Checkout() {
           </div>
           <div className={styles.totalAmount}>
             <CurrencyRupeeIcon style={{ fontSize: '15px', marginRight: '8px' }} />
-            <h4>{calculatedBookingPrice(bookingCar?.price)}</h4>
+            <h4>
+              {CalculatePrice.calculatedBookingPrice(
+                bookingCar?.price,
+                carFilterData?.pickupDate?.pickup_date,
+                carFilterData?.dropoffDate?.dropoff_date,
+              )}
+            </h4>
           </div>
         </Grid>
         <Grid item xs={6} display={'flex'} justifyContent={'flex-end'}>
-          <Button variant='contained' >Proceed to pay</Button>
+          <Button variant='contained' onClick={handlePayment}>
+            Proceed to pay
+          </Button>
         </Grid>
       </Grid>
     </div>
