@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Loader from './../../util/Loading/loading';
 import styles from './styles.module.css';
 import BookingServices from '../../services/BookingServices';
 import Info from '../../util/Alerts/Info';
+import AlertMessageContext from '../../context/AlertMessageContext';
 
 function Bookings() {
   const [bookings, setBookings] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  const { postErrorAlert } = useContext(AlertMessageContext);
+
 
   const getBookings = async () => {
     setIsLoading(true);
@@ -14,7 +18,7 @@ function Bookings() {
       const res = await BookingServices.getBookings();
       setBookings(res);
     } catch (error) {
-      console.log('Error', error);
+      postErrorAlert(error?.message)
     }
     setIsLoading(false);
   };

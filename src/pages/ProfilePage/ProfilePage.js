@@ -3,7 +3,6 @@ import styles from './ProfilePage.module.css';
 import Footer from '../../components/Footer/Footer';
 import { useNavigate } from 'react-router-dom';
 import AlertMessageContext from '../../context/AlertMessageContext';
-
 import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
 import Avatar from '@mui/material/Avatar';
@@ -33,7 +32,7 @@ function ProfilePage() {
 
   const navigate = useNavigate();
   const { userProfile, initiateLogout, isLoggedIn, setUserProfile } = userContextHook();
-  const { postSuccessAlert } = useContext(AlertMessageContext);
+  const { postSuccessAlert, postErrorAlert } = useContext(AlertMessageContext);
 
   const uploadFrontImg = (e) => {
     setUpdatedData({ ...updatedData, licence_front: e.target.files[0] });
@@ -86,7 +85,7 @@ function ProfilePage() {
       await initiateLogout();
       isLoggedIn();
     } catch (error) {
-      console.log('Error while logging out', error);
+      postErrorAlert(error?.message)
     } finally {
       postSuccessAlert('Logout successfully');
       setData({});
