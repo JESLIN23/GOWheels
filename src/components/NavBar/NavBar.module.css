@@ -12,9 +12,19 @@
     padding-right: 3%;
   }
 
-  .logo span {
+  /* .logo span {
     font-size: 35px;
     color: antiquewhite;
+  } */
+
+  .logo {
+    height: 3rem;
+    width: 9rem;
+  }
+
+  .logo img {
+    height: 3rem;
+    width: 9rem;
   }
 
   .header ul {
@@ -88,9 +98,19 @@
     background-color: black;
   }
 
-  .logo span {
+  /* .logo span {
     font-size: 18px;
     color: antiquewhite;
+  } */
+
+  .logo {
+    height: 2rem;
+    width: 6rem;
+  }
+
+  .logo img {
+    height: 2rem;
+    width: 6rem;
   }
 
   .menuBtn {

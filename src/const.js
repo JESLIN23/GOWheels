@@ -1,7 +1,6 @@
 export const BACKEND_URL = 'http://localhost:6060/api/v1';
 
 export const ROUTES = {
-  BOOKING: '/booking',
   LOGIN: '/login',
   REGISTER: '/signup',
   FORGOTPASSWORD: '/forgotpassword',
@@ -17,6 +16,7 @@ export const ROUTES = {
   ABOUTUS: '/about',
   OFFERS: '/offers',
   CHECKOUT: '/checkout',
+  BOOKINGS: '/booking',
 };
 
 export const STORAGE_KEYS = {

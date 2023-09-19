@@ -1,7 +1,7 @@
-import { Navigate } from 'react-router-dom'
-import { ROUTES } from '../const'
-import React, { useContext } from 'react'
-import UserContext from '../context/UserContext'
+import { Navigate } from 'react-router-dom';
+import { ROUTES } from '../const';
+import React, { useContext } from 'react';
+import UserContext from '../context/UserContext';
 
 // export default function protectRoute({ children }) {
 //     const { isLoggedIn } = useContext(UserContext);
@@ -16,12 +16,12 @@ import UserContext from '../context/UserContext'
 // }
 
 export default function ProtectedRoute({ element: Element, ...props }) {
-    const { isLoggedIn } = useContext(UserContext);
-  
-    const isAuthenticated = isLoggedIn();
-    return isAuthenticated ? (
-      <Element {...props} />
-    ) : (
-      <Navigate to={ROUTES.LOGIN} />
-    );
-  }
+  const { isLoggedIn } = useContext(UserContext);
+
+  const authentication = async () => {
+    const auth = await isLoggedIn();
+    return auth;
+  };
+
+  return authentication() ? <Element {...props} /> : <Navigate to={ROUTES.LOGIN} />;
+}
